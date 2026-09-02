@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -10,14 +11,16 @@
   content="width=device-width, initial-scale=1.0"
 >
 
-<title>UP Vision Inventory</title>
+<title>
+  UP Vision Inventory
+</title>
 
 
 <style>
 
-/* =====================================================
+/* =========================================================
    GLOBAL
-===================================================== */
+========================================================= */
 
 * {
   box-sizing: border-box;
@@ -34,24 +37,29 @@ body {
     sans-serif;
 
   background:
-    linear-gradient(
-      135deg,
-      #eef3f8,
-      #f8fafc
-    );
+    #eef2f7;
 
-  color: #172033;
-
-  min-height: 100vh;
+  color:
+    #172033;
 
 }
 
 
-/* =====================================================
-   LOGIN
-===================================================== */
+button,
+input,
+select {
 
-.login-container {
+  font-family:
+    inherit;
+
+}
+
+
+/* =========================================================
+   LOGIN
+========================================================= */
+
+#loginScreen {
 
   min-height: 100vh;
 
@@ -66,21 +74,21 @@ body {
 }
 
 
-.login-card {
+.loginCard {
 
   width: 100%;
 
-  max-width: 430px;
+  max-width: 450px;
 
   background: white;
 
-  padding: 38px;
-
   border-radius: 22px;
 
+  padding: 35px;
+
   box-shadow:
-    0 20px 60px
-    rgba(0,0,0,0.12);
+    0 15px 45px
+    rgba(0,0,0,.12);
 
 }
 
@@ -89,11 +97,11 @@ body {
 
   text-align: center;
 
-  font-size: 34px;
+  font-size: 32px;
 
-  font-weight: 900;
+  font-weight: 800;
 
-  color: #155eef;
+  margin-bottom: 5px;
 
 }
 
@@ -102,79 +110,76 @@ body {
 
   text-align: center;
 
-  color: #6b7280;
-
-  margin-top: 8px;
+  color: #64748b;
 
   margin-bottom: 30px;
 
 }
 
 
-label {
+.loginLabel {
 
   display: block;
 
-  font-size: 17px;
-
   font-weight: 700;
 
-  margin-top: 18px;
-
-  margin-bottom: 8px;
+  margin:
+    0 0 8px;
 
 }
 
 
-input,
-select {
+.loginInput {
 
   width: 100%;
 
-  height: 58px;
+  height: 55px;
 
-  padding: 0 16px;
-
-  border: 1px solid #cbd5e1;
+  border:
+    1px solid #cbd5e1;
 
   border-radius: 12px;
 
-  font-size: 19px;
+  padding:
+    0 16px;
+
+  font-size: 18px;
+
+  margin-bottom: 18px;
 
   outline: none;
 
 }
 
 
-input:focus,
-select:focus {
+.loginInput:focus {
 
-  border-color: #2563eb;
+  border-color:
+    #6d35e8;
 
   box-shadow:
     0 0 0 3px
-    rgba(37,99,235,0.12);
+    rgba(109,53,232,.12);
 
 }
 
 
-.login-button {
+.loginButton {
 
   width: 100%;
 
-  margin-top: 28px;
-
-  height: 58px;
+  height: 55px;
 
   border: none;
 
   border-radius: 12px;
 
-  background: #2563eb;
+  background:
+    #6d35e8;
 
   color: white;
 
-  font-size: 19px;
+  font-size: 18px;
 
   font-weight: 800;
 
@@ -183,11 +188,42 @@ select:focus {
 }
 
 
-/* =====================================================
-   APPLICATION
-===================================================== */
+.loginButton:hover {
 
-.app {
+  background:
+    #5b28d1;
+
+}
+
+
+.loginError {
+
+  display: none;
+
+  background:
+    #fee2e2;
+
+  color:
+    #b91c1c;
+
+  border-radius: 10px;
+
+  padding: 12px;
+
+  margin-bottom: 18px;
+
+  text-align: center;
+
+  font-weight: 700;
+
+}
+
+
+/* =========================================================
+   MAIN APPLICATION
+========================================================= */
+
+#app {
 
   display: none;
 
@@ -198,76 +234,92 @@ select:focus {
 
 .header {
 
-  background: #111827;
+  background:
+    #172033;
 
   color: white;
 
-  padding: 15px 25px;
+  padding:
+    16px 20px;
 
   display: flex;
+
+  align-items: center;
 
   justify-content: space-between;
 
-  align-items: center;
+  gap: 15px;
 
 }
 
 
-.header-title {
+.headerTitle {
 
   font-size: 23px;
 
-  font-weight: 900;
+  font-weight: 800;
 
 }
 
 
-.header-user {
+.headerUser {
 
   display: flex;
 
-  gap: 15px;
-
   align-items: center;
+
+  gap: 12px;
 
 }
 
 
-.logout-button {
+.logoutButton {
 
-  border: none;
-
-  background: #ef4444;
+  background:
+    #334155;
 
   color: white;
 
-  padding: 10px 15px;
+  border: none;
+
+  padding:
+    9px 14px;
 
   border-radius: 9px;
 
-  font-weight: 700;
-
   cursor: pointer;
+
+  font-weight: 700;
 
 }
 
 
-/* =====================================================
-   MAIN
-===================================================== */
+.logoutButton:hover {
 
-.main {
+  background:
+    #475569;
+
+}
+
+
+.container {
 
   width: 100%;
 
-  max-width: 950px;
+  max-width: 1000px;
 
-  margin: auto;
+  margin:
+    0 auto;
 
-  padding: 25px 18px 60px;
+  padding:
+    20px;
 
 }
 
+
+/* =========================================================
+   CARD
+========================================================= */
 
 .card {
 
@@ -275,103 +327,104 @@ select:focus {
 
   border-radius: 20px;
 
-  padding: 28px;
+  padding: 22px;
+
+  margin-bottom: 20px;
 
   box-shadow:
-    0 10px 35px
-    rgba(0,0,0,0.08);
+    0 7px 25px
+    rgba(0,0,0,.07);
 
 }
 
 
-.step {
+.fieldLabel {
 
-  display: inline-block;
+  display: block;
 
-  padding: 7px 14px;
-
-  border-radius: 20px;
-
-  background: #dbeafe;
-
-  color: #1d4ed8;
-
-  font-size: 13px;
+  font-size: 18px;
 
   font-weight: 800;
 
-}
-
-
-.title {
-
-  font-size: 30px;
-
-  font-weight: 900;
-
-  margin-top: 12px;
+  margin-bottom: 8px;
 
 }
 
 
-.subtitle2 {
+.mainInput {
 
-  color: #64748b;
+  width: 100%;
 
-  margin-top: 5px;
+  height: 62px;
 
-  margin-bottom: 25px;
+  border:
+    1px solid #cbd5e1;
 
-}
+  border-radius: 13px;
 
+  padding:
+    0 18px;
 
-/* =====================================================
-   BARCODE
-===================================================== */
+  font-size: 22px;
 
-.barcode-input {
-
-  height: 65px !important;
-
-  font-size: 25px !important;
-
-  font-weight: 700;
+  outline: none;
 
 }
 
 
-/* =====================================================
+.mainInput:focus {
+
+  border-color:
+    #6d35e8;
+
+  box-shadow:
+    0 0 0 3px
+    rgba(109,53,232,.12);
+
+}
+
+
+/* =========================================================
    DESCRIPTION
-===================================================== */
+========================================================= */
 
 .description {
 
   min-height: 58px;
 
-  padding: 16px;
-
-  border-radius: 12px;
-
-  background: #f1f5f9;
-
-  border: 1px solid #e2e8f0;
-
-  font-size: 18px;
-
   display: flex;
 
   align-items: center;
+
+  border:
+    1px solid #cbd5e1;
+
+  background:
+    #f8fafc;
+
+  border-radius: 13px;
+
+  padding:
+    12px 16px;
+
+  font-size: 19px;
+
+  color:
+    #475569;
 
 }
 
 
 .description.found {
 
-  background: #ecfdf5;
+  background:
+    #ecfdf5;
 
-  border-color: #86efac;
+  border-color:
+    #86efac;
 
-  color: #047857;
+  color:
+    #166534;
 
   font-weight: 700;
 
@@ -380,80 +433,93 @@ select:focus {
 
 .description.not-found {
 
-  background: #fff7ed;
+  background:
+    #fff7ed;
 
-  border-color: #fdba74;
+  border-color:
+    #fdba74;
 
-  color: #c2410c;
+  color:
+    #c2410c;
 
 }
 
 
-/* =====================================================
+/* =========================================================
    QUANTITY
-===================================================== */
+========================================================= */
 
-.quantity {
+.quantityInput {
 
   text-align: center;
 
-  font-size: 28px !important;
+  font-size: 28px;
 
-  font-weight: 900;
+  font-weight: 800;
 
 }
 
 
-/* =====================================================
-   SPLIT
-===================================================== */
+/* =========================================================
+   BOXES
+========================================================= */
 
-.split {
+.splitContainer {
 
   display: grid;
 
   grid-template-columns:
     1fr 1fr;
 
-  gap: 20px;
+  gap: 18px;
 
-  margin-top: 25px;
+  margin-top: 18px;
 
 }
 
 
-.split-box {
+.splitBox {
 
-  text-align: center;
+  min-height: 190px;
 
   border-radius: 18px;
 
-  padding: 25px;
+  display: flex;
 
-  border: 3px solid;
+  flex-direction: column;
 
-}
+  align-items: center;
 
+  justify-content: center;
 
-.green {
-
-  background: #dcfce7;
-
-  border-color: #22c55e;
+  text-align: center;
 
 }
 
 
-.red {
+.greenBox {
 
-  background: #fee2e2;
+  background:
+    #dcfce7;
 
-  border-color: #ef4444;
+  border:
+    3px solid #22c55e;
 
 }
 
 
-.box-name {
+.redBox {
+
+  background:
+    #fee2e2;
+
+  border:
+    3px solid #ef4444;
+
+}
+
+
+.boxTitle {
 
   font-size: 20px;
 
@@ -462,20 +528,21 @@ select:focus {
 }
 
 
-.percent {
+.boxPercent {
 
-  margin-top: 7px;
+  font-size: 18px;
 
-  color: #64748b;
+  color:
+    #64748b;
 
-  font-size: 17px;
+  margin-top: 8px;
 
 }
 
 
-.box-number {
+.boxNumber {
 
-  font-size: 48px;
+  font-size: 52px;
 
   font-weight: 900;
 
@@ -484,85 +551,153 @@ select:focus {
 }
 
 
-/* =====================================================
-   CAMERA
-===================================================== */
+/* =========================================================
+   CAMERA BUTTON
+========================================================= */
 
-.camera-button {
-
-  width: 100%;
-
-  height: 60px;
-
-  margin-top: 28px;
-
-  border: none;
-
-  border-radius: 12px;
-
-  background: #7c3aed;
-
-  color: white;
-
-  font-size: 19px;
-
-  font-weight: 900;
-
-  cursor: pointer;
-
-}
-
-
-.camera-button:hover {
-
-  background: #6d28d9;
-
-}
-
-
-.preview-container {
-
-  display: none;
-
-  margin-top: 18px;
-
-  text-align: center;
-
-}
-
-
-.preview-container img {
-
-  max-width: 100%;
-
-  max-height: 350px;
-
-  border-radius: 15px;
-
-  box-shadow:
-    0 8px 25px
-    rgba(0,0,0,0.15);
-
-}
-
-
-/* =====================================================
-   SUBMIT
-===================================================== */
-
-.submit-button {
+.cameraButton {
 
   width: 100%;
 
   height: 62px;
 
-  margin-top: 28px;
+  border: none;
+
+  border-radius: 13px;
+
+  background:
+    #6d35e8;
+
+  color: white;
+
+  font-size: 19px;
+
+  font-weight: 800;
+
+  cursor: pointer;
+
+  margin-top: 20px;
+
+}
+
+
+.cameraButton:hover {
+
+  background:
+    #5b28d1;
+
+}
+
+
+/* =========================================================
+   IMAGE PREVIEW
+========================================================= */
+
+#previewContainer {
+
+  display: none;
+
+  text-align: center;
+
+  margin-top: 18px;
+
+}
+
+
+#previewImage {
+
+  max-width: 100%;
+
+  max-height: 350px;
+
+  border-radius: 14px;
+
+  box-shadow:
+    0 8px 25px
+    rgba(0,0,0,.15);
+
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+.status {
+
+  display: none;
+
+  padding:
+    16px;
+
+  border-radius: 13px;
+
+  text-align: center;
+
+  font-weight: 800;
+
+  font-size: 17px;
+
+  margin-top: 18px;
+
+}
+
+
+.status.loading {
+
+  display: block;
+
+  background:
+    #dbeafe;
+
+  color:
+    #1d4ed8;
+
+}
+
+
+.status.success {
+
+  display: block;
+
+  background:
+    #dcfce7;
+
+  color:
+    #166534;
+
+}
+
+
+.status.error {
+
+  display: block;
+
+  background:
+    #fee2e2;
+
+  color:
+    #b91c1c;
+
+}
+
+
+/* =========================================================
+   SUBMIT
+========================================================= */
+
+.submitButton {
+
+  width: 100%;
+
+  height: 66px;
 
   border: none;
 
-  border-radius: 12px;
+  border-radius: 14px;
 
-  background: #059669;
+  background:
+    #059669;
 
   color: white;
 
@@ -572,77 +707,34 @@ select:focus {
 
   cursor: pointer;
 
-}
-
-
-.submit-button:disabled {
-
-  opacity: 0.6;
-
-  cursor: not-allowed;
+  margin-top: 18px;
 
 }
 
 
-/* =====================================================
-   STATUS
-===================================================== */
+.submitButton:hover {
 
-.status {
-
-  display: none;
-
-  padding: 15px;
-
-  border-radius: 12px;
-
-  margin-top: 20px;
-
-  text-align: center;
-
-  font-weight: 700;
+  background:
+    #047857;
 
 }
 
 
-.status.success {
+.submitButton:disabled {
 
-  display: block;
+  opacity: .65;
 
-  background: #dcfce7;
-
-  color: #166534;
-
-}
-
-
-.status.error {
-
-  display: block;
-
-  background: #fee2e2;
-
-  color: #991b1b;
+  cursor:
+    not-allowed;
 
 }
 
 
-.status.loading {
-
-  display: block;
-
-  background: #dbeafe;
-
-  color: #1e40af;
-
-}
-
-
-/* =====================================================
+/* =========================================================
    CAMERA MODAL
-===================================================== */
+========================================================= */
 
-.camera-modal {
+#cameraModal {
 
   display: none;
 
@@ -653,151 +745,201 @@ select:focus {
   z-index: 9999;
 
   background:
-    rgba(0,0,0,0.92);
-
-  justify-content: center;
+    rgba(0,0,0,.92);
 
   align-items: center;
 
-  padding: 20px;
-
-}
-
-
-.camera-window {
-
-  width: 100%;
-
-  max-width: 700px;
-
-  background: #111827;
-
-  border-radius: 20px;
+  justify-content: center;
 
   padding: 15px;
 
 }
 
 
-.camera-video {
+.cameraWindow {
 
   width: 100%;
 
-  display: block;
+  max-width: 700px;
 
-  background: black;
+  background:
+    #111827;
 
-  border-radius: 14px;
+  border-radius: 18px;
 
-  max-height: 70vh;
-
-}
-
-
-.camera-controls {
-
-  display: flex;
-
-  gap: 10px;
-
-  margin-top: 15px;
+  padding: 15px;
 
 }
 
 
-.take-picture {
+#cameraVideo {
 
-  flex: 1;
+  width: 100%;
+
+  max-height: 65vh;
+
+  object-fit: contain;
+
+  border-radius: 12px;
+
+  background:
+    black;
+
+}
+
+
+.cameraControls {
+
+  display: grid;
+
+  grid-template-columns:
+    1fr 1fr;
+
+  gap: 12px;
+
+  margin-top: 14px;
+
+}
+
+
+.takePhotoButton,
+.closeCameraButton {
 
   height: 55px;
 
   border: none;
 
-  border-radius: 10px;
+  border-radius: 12px;
 
-  background: #16a34a;
+  font-size: 17px;
 
-  color: white;
+  font-weight: 800;
 
-  font-size: 18px;
-
-  font-weight: 900;
+  cursor: pointer;
 
 }
 
 
-.close-camera {
+.takePhotoButton {
 
-  flex: 1;
-
-  height: 55px;
-
-  border: none;
-
-  border-radius: 10px;
-
-  background: #dc2626;
+  background:
+    #22c55e;
 
   color: white;
-
-  font-size: 18px;
-
-  font-weight: 900;
 
 }
 
 
-/* =====================================================
-   RESPONSIVE
-===================================================== */
+.closeCameraButton {
 
-@media(max-width:650px) {
+  background:
+    #475569;
+
+  color: white;
+
+}
+
+
+/* =========================================================
+   DESKTOP
+========================================================= */
+
+@media (
+  min-width: 700px
+) {
+
+  .card {
+
+    padding:
+      28px;
+
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (
+  max-width: 600px
+) {
 
   .header {
 
-    padding: 14px;
+    align-items:
+      flex-start;
 
   }
 
 
-  .header-title {
+  .headerTitle {
 
-    font-size: 18px;
+    font-size: 19px;
 
   }
 
 
-  .header-user {
+  .headerUser {
 
-    font-size: 13px;
+    flex-direction:
+      column;
+
+    align-items:
+      flex-end;
+
+    gap: 5px;
+
+  }
+
+
+  .container {
+
+    padding:
+      12px;
 
   }
 
 
   .card {
 
-    padding: 18px;
+    padding:
+      17px;
+
+    border-radius:
+      16px;
 
   }
 
 
-  .title {
+  .splitContainer {
 
-    font-size: 25px;
-
-  }
-
-
-  .split {
-
-    grid-template-columns: 1fr;
+    gap: 10px;
 
   }
 
 
-  .box-number {
+  .splitBox {
 
-    font-size: 42px;
+    min-height:
+      160px;
+
+  }
+
+
+  .boxNumber {
+
+    font-size:
+      43px;
+
+  }
+
+
+  .boxTitle {
+
+    font-size:
+      17px;
 
   }
 
@@ -811,16 +953,13 @@ select:focus {
 <body>
 
 
-<!-- =====================================================
-     LOGIN
-===================================================== -->
+<!-- =======================================================
+     LOGIN SCREEN
+======================================================== -->
 
-<div
-  id="loginScreen"
-  class="login-container"
->
+<div id="loginScreen">
 
-  <div class="login-card">
+  <div class="loginCard">
 
     <div class="logo">
       UP Vision
@@ -831,11 +970,24 @@ select:focus {
     </div>
 
 
-    <label>
+    <div
+      id="loginError"
+      class="loginError"
+    ></div>
+
+
+    <label
+      class="loginLabel"
+      for="userSelect"
+    >
       User
     </label>
 
-    <select id="userSelect">
+
+    <select
+      id="userSelect"
+      class="loginInput"
+    >
 
       <option value="">
         Select User
@@ -864,264 +1016,276 @@ select:focus {
     </select>
 
 
-    <label>
+    <label
+      class="loginLabel"
+      for="password"
+    >
       Password
     </label>
 
+
     <input
       id="password"
+      class="loginInput"
       type="password"
       placeholder="Enter password"
+      autocomplete="off"
     >
 
 
     <button
-      class="login-button"
+      class="loginButton"
       onclick="login()"
     >
       Login
     </button>
 
-
-    <div
-      id="loginError"
-      class="status error"
-    ></div>
-
   </div>
 
 </div>
 
 
 
-<!-- =====================================================
-     APP
-===================================================== -->
+<!-- =======================================================
+     MAIN APP
+======================================================== -->
 
-<div
-  id="app"
-  class="app"
->
+<div id="app">
 
 
-<header class="header">
+  <!-- HEADER -->
 
-  <div class="header-title">
-    UP Vision Inventory
-  </div>
+  <header class="header">
 
-
-  <div class="header-user">
-
-    <span>
-      <span id="loggedUser"></span>
-    </span>
-
-    <button
-      class="logout-button"
-      onclick="logout()"
-    >
-      Logout
-    </button>
-
-  </div>
-
-</header>
+    <div class="headerTitle">
+      UP Vision Inventory
+    </div>
 
 
+    <div class="headerUser">
 
-<main class="main">
-
-<div class="card">
-
-
-  <div class="step">
-    STEP 1
-  </div>
+      <span>
+        👤
+        <strong id="loggedUser">
+        </strong>
+      </span>
 
 
-  <div class="title">
-    Scan Product
-  </div>
+      <button
+        class="logoutButton"
+        onclick="logout()"
+      >
+        Logout
+      </button>
 
+    </div>
 
-  <div class="subtitle2">
-    Scan the barcode, enter quantity,
-    take a picture and submit.
-  </div>
+  </header>
 
 
 
-  <!-- BARCODE -->
-
-  <label>
-    Barcode
-  </label>
-
-  <input
-    id="barcode"
-    class="barcode-input"
-    type="text"
-    placeholder="Scan barcode..."
-    autocomplete="off"
-  >
+  <main class="container">
 
 
+    <!-- ===================================================
+         BARCODE
+    ==================================================== -->
 
-  <!-- DESCRIPTION -->
+    <div class="card">
 
-  <label>
-    Product Description
-  </label>
-
-  <div
-    id="description"
-    class="description"
-  >
-    Waiting for barcode...
-  </div>
-
+      <label
+        class="fieldLabel"
+        for="barcode"
+      >
+        Barcode
+      </label>
 
 
-  <!-- QUANTITY -->
+      <input
+        id="barcode"
+        class="mainInput"
+        type="text"
+        inputmode="numeric"
+        autocomplete="off"
+        placeholder="Scan or enter barcode"
+      >
 
-  <label>
-    Total Quantity
-  </label>
-
-  <input
-    id="quantity"
-    class="quantity"
-    type="number"
-    min="1"
-    step="1"
-    placeholder="Enter quantity"
-  >
+    </div>
 
 
 
-  <!-- SPLIT -->
+    <!-- ===================================================
+         DESCRIPTION
+    ==================================================== -->
 
-  <div class="split">
+    <div class="card">
 
+      <label
+        class="fieldLabel"
+      >
+        Product Description
+      </label>
 
-    <div
-      class="split-box green"
-    >
-
-      <div class="box-name">
-        GREEN BOX
-      </div>
-
-      <div class="percent">
-        51%
-      </div>
 
       <div
-        id="greenQty"
-        class="box-number"
+        id="description"
+        class="description"
       >
-        0
+        Waiting for barcode...
       </div>
 
     </div>
 
 
-    <div
-      class="split-box red"
-    >
 
-      <div class="box-name">
-        RED BOX
-      </div>
+    <!-- ===================================================
+         QUANTITY
+    ==================================================== -->
 
-      <div class="percent">
-        49%
-      </div>
+    <div class="card">
 
-      <div
-        id="redQty"
-        class="box-number"
+      <label
+        class="fieldLabel"
+        for="quantity"
       >
-        0
+        Total Quantity
+      </label>
+
+
+      <input
+        id="quantity"
+        class="mainInput quantityInput"
+        type="number"
+        min="1"
+        step="1"
+        placeholder="Enter quantity"
+      >
+
+
+      <!-- SPLIT BOXES -->
+
+      <div class="splitContainer">
+
+
+        <!-- GREEN -->
+
+        <div
+          class="splitBox greenBox"
+        >
+
+          <div class="boxTitle">
+            GREEN BOX
+          </div>
+
+          <div class="boxPercent">
+            51%
+          </div>
+
+          <div
+            id="greenQty"
+            class="boxNumber"
+          >
+            0
+          </div>
+
+        </div>
+
+
+        <!-- RED -->
+
+        <div
+          class="splitBox redBox"
+        >
+
+          <div class="boxTitle">
+            RED BOX
+          </div>
+
+          <div class="boxPercent">
+            49%
+          </div>
+
+          <div
+            id="redQty"
+            class="boxNumber"
+          >
+            0
+          </div>
+
+        </div>
+
+
       </div>
 
     </div>
 
 
-  </div>
+
+    <!-- ===================================================
+         IMAGE
+    ==================================================== -->
+
+    <div class="card">
 
 
-
-  <!-- CAMERA -->
-
-  <button
-    class="camera-button"
-    onclick="openCamera()"
-  >
-    📷 Open Camera
-  </button>
+      <button
+        class="cameraButton"
+        onclick="openCamera()"
+      >
+        📷 Add Product Image
+      </button>
 
 
-  <div
-    id="previewContainer"
-    class="preview-container"
-  >
+      <div
+        id="previewContainer"
+      >
 
-    <img
-      id="previewImage"
-      alt="Product photo"
-    >
+        <img
+          id="previewImage"
+          alt="Product photo"
+        >
 
-  </div>
-
+      </div>
 
 
-  <!-- STATUS -->
-
-  <div
-    id="status"
-    class="status"
-  ></div>
+      <div
+        id="status"
+        class="status"
+      ></div>
 
 
+      <button
+        id="submitButton"
+        class="submitButton"
+        onclick="submitProduct()"
+      >
+        ✓ Submit & Next Product
+      </button>
 
-  <!-- SUBMIT -->
-
-  <button
-    id="submitButton"
-    class="submit-button"
-    onclick="submitProduct()"
-  >
-    ✓ Submit & Next Product
-  </button>
+    </div>
 
 
-</div>
-
-</main>
+  </main>
 
 </div>
 
 
 
-<!-- =====================================================
+<!-- =======================================================
      CAMERA MODAL
-===================================================== -->
+======================================================== -->
 
-<div
-  id="cameraModal"
-  class="camera-modal"
->
+<div id="cameraModal">
 
-  <div class="camera-window">
+
+  <div class="cameraWindow">
 
 
     <video
       id="cameraVideo"
-      class="camera-video"
       autoplay
       playsinline
+      muted
     ></video>
 
 
@@ -1131,10 +1295,10 @@ select:focus {
     ></canvas>
 
 
-    <div class="camera-controls">
+    <div class="cameraControls">
 
       <button
-        class="take-picture"
+        class="takePhotoButton"
         onclick="takePicture()"
       >
         📸 Take Picture
@@ -1142,13 +1306,14 @@ select:focus {
 
 
       <button
-        class="close-camera"
+        class="closeCameraButton"
         onclick="closeCamera()"
       >
-        ✕ Close
+        ✕ Cancel
       </button>
 
     </div>
+
 
   </div>
 
@@ -1156,16 +1321,19 @@ select:focus {
 
 
 
-<!-- =====================================================
+<!-- =======================================================
      HIDDEN SAVE FORM
-===================================================== -->
+======================================================== -->
 
-<iframe
-  name="saveFrame"
-  id="saveFrame"
-  style="display:none;"
-></iframe>
+<!--
 
+IMPORTANT:
+
+This form is intentionally used instead of fetch()
+because Google Apps Script Web Apps can redirect requests.
+A normal form POST is much more reliable for Apps Script.
+
+-->
 
 <form
   id="saveForm"
@@ -1175,46 +1343,70 @@ select:focus {
 >
 
   <input
+    type="hidden"
     name="action"
     value="submit"
   >
 
+
   <input
+    type="hidden"
+    id="formRequestId"
+    name="requestId"
+  >
+
+
+  <input
+    type="hidden"
     id="formUser"
     name="user"
   >
 
+
   <input
+    type="hidden"
     id="formBarcode"
     name="barcode"
   >
 
+
   <input
+    type="hidden"
     id="formDescription"
     name="description"
   >
 
+
   <input
+    type="hidden"
     id="formTotalQty"
     name="totalQty"
   >
 
+
   <input
+    type="hidden"
     id="formGreenQty"
     name="greenQty"
   >
 
+
   <input
+    type="hidden"
     id="formRedQty"
     name="redQty"
   >
 
+
   <input
+    type="hidden"
     id="formImageData"
     name="imageData"
   >
 
+
   <input
+    type="hidden"
     id="formImageName"
     name="imageName"
   >
@@ -1222,16 +1414,31 @@ select:focus {
 </form>
 
 
+<iframe
+  id="saveFrame"
+  name="saveFrame"
+  style="display:none;"
+></iframe>
+
+
 
 <script>
-
 
 /* =========================================================
    GOOGLE APPS SCRIPT URL
 ========================================================= */
 
+/*
+ * IMPORTANT:
+ *
+ * Paste your deployed Apps Script Web App URL here.
+ *
+ * It must end with /exec
+ */
+
 const GOOGLE_SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycby_hmyJjGZn733R3FX5sumTdHYyRpuNSuu_Bu6VTVtoZdoYjkpbHf3qVFlQLmUUuLUi/exec";
+  "https://script.google.com/macros/s/AKfycbxqLY9luOEeDxTugf-vZbyUofRUgmjSUGPWFJRbQj9-qfHKGv7d4FY2YPL6yry4asoe/exec";
+
 
 
 /* =========================================================
@@ -1264,6 +1471,7 @@ let cameraStream = null;
 let capturedImage = null;
 
 
+
 /* =========================================================
    LOGIN
 ========================================================= */
@@ -1272,19 +1480,25 @@ function login() {
 
   const user =
     document
-      .getElementById("userSelect")
+      .getElementById(
+        "userSelect"
+      )
       .value;
 
 
   const password =
     document
-      .getElementById("password")
+      .getElementById(
+        "password"
+      )
       .value;
 
 
   const error =
     document
-      .getElementById("loginError");
+      .getElementById(
+        "loginError"
+      );
 
 
   error.style.display =
@@ -1324,21 +1538,30 @@ function login() {
 
 
   document
-    .getElementById("loggedUser")
+    .getElementById(
+      "loggedUser"
+    )
     .textContent =
     user;
 
 
   document
-    .getElementById("loginScreen")
+    .getElementById(
+      "loginScreen"
+    )
     .style.display =
     "none";
 
 
   document
-    .getElementById("app")
+    .getElementById(
+      "app"
+    )
     .style.display =
     "block";
+
+
+  resetProduct();
 
 
   setTimeout(
@@ -1349,6 +1572,32 @@ function login() {
 }
 
 
+
+/* =========================================================
+   PASSWORD ENTER
+========================================================= */
+
+document
+  .getElementById("password")
+  .addEventListener(
+    "keydown",
+    function(event) {
+
+      if (
+        event.key === "Enter"
+      ) {
+
+        event.preventDefault();
+
+        login();
+
+      }
+
+    }
+  );
+
+
+
 /* =========================================================
    LOGOUT
 ========================================================= */
@@ -1357,28 +1606,39 @@ function logout() {
 
   closeCamera();
 
-  currentUser = "";
+
+  currentUser =
+    "";
+
 
   document
-    .getElementById("app")
+    .getElementById(
+      "app"
+    )
     .style.display =
     "none";
 
 
   document
-    .getElementById("loginScreen")
+    .getElementById(
+      "loginScreen"
+    )
     .style.display =
     "flex";
 
 
   document
-    .getElementById("password")
+    .getElementById(
+      "password"
+    )
     .value =
     "";
 
 
   document
-    .getElementById("userSelect")
+    .getElementById(
+      "userSelect"
+    )
     .value =
     "";
 
@@ -1388,8 +1648,9 @@ function logout() {
 }
 
 
+
 /* =========================================================
-   BARCODE
+   BARCODE INPUT
 ========================================================= */
 
 document
@@ -1405,6 +1666,12 @@ document
         event.preventDefault();
 
         lookupDescription();
+
+        document
+          .getElementById(
+            "quantity"
+          )
+          .focus();
 
       }
 
@@ -1423,11 +1690,11 @@ document
       );
 
 
-      const value =
+      const barcode =
         this.value.trim();
 
 
-      if (!value) {
+      if (!barcode) {
 
         resetDescription();
 
@@ -1439,11 +1706,12 @@ document
       lookupTimer =
         setTimeout(
           lookupDescription,
-          350
+          300
         );
 
     }
   );
+
 
 
 /* =========================================================
@@ -1454,7 +1722,9 @@ function lookupDescription() {
 
   const barcode =
     document
-      .getElementById("barcode")
+      .getElementById(
+        "barcode"
+      )
       .value
       .trim();
 
@@ -1470,7 +1740,9 @@ function lookupDescription() {
 
   const box =
     document
-      .getElementById("description");
+      .getElementById(
+        "description"
+      );
 
 
   box.className =
@@ -1495,15 +1767,13 @@ function lookupDescription() {
     );
 
 
-  let finished =
-    false;
+  let finished = false;
 
 
   window[callbackName] =
     function(data) {
 
-      finished =
-        true;
+      finished = true;
 
 
       if (
@@ -1570,7 +1840,7 @@ function lookupDescription() {
 
 
       box.textContent =
-        "Unable to connect to Google Sheets.";
+        "Unable to connect to description database.";
 
 
       cleanup();
@@ -1586,21 +1856,32 @@ function lookupDescription() {
       barcode
     ) +
     "&callback=" +
-    callbackName;
+    encodeURIComponent(
+      callbackName
+    );
 
 
   document
     .body
-    .appendChild(script);
+    .appendChild(
+      script
+    );
 
 }
 
+
+
+/* =========================================================
+   RESET DESCRIPTION
+========================================================= */
 
 function resetDescription() {
 
   const box =
     document
-      .getElementById("description");
+      .getElementById(
+        "description"
+      );
 
 
   box.className =
@@ -1613,12 +1894,15 @@ function resetDescription() {
 }
 
 
+
 /* =========================================================
    QUANTITY SPLIT
 ========================================================= */
 
 document
-  .getElementById("quantity")
+  .getElementById(
+    "quantity"
+  )
   .addEventListener(
     "input",
     calculateSplit
@@ -1627,13 +1911,14 @@ document
 
 function calculateSplit() {
 
-  const input =
-    document
-      .getElementById("quantity");
-
-
   let quantity =
-    Number(input.value);
+    Number(
+      document
+        .getElementById(
+          "quantity"
+        )
+        .value
+    );
 
 
   if (
@@ -1642,13 +1927,17 @@ function calculateSplit() {
   ) {
 
     document
-      .getElementById("greenQty")
+      .getElementById(
+        "greenQty"
+      )
       .textContent =
       "0";
 
 
     document
-      .getElementById("redQty")
+      .getElementById(
+        "redQty"
+      )
       .textContent =
       "0";
 
@@ -1659,30 +1948,28 @@ function calculateSplit() {
 
 
   /*
-   * Inventory must be whole pieces.
+   * Whole pieces only.
    *
-   * Rule:
+   * Green receives 51%.
    *
-   * The 51% bucket receives the piece
-   * whenever there is an odd split.
+   * Math.round means:
    *
-   * Examples:
-   *
-   * 1  = 1 / 0
-   * 2  = 1 / 1
-   * 3  = 2 / 1
-   * 4  = 2 / 2
-   * 5  = 3 / 2
-   * 6  = 3 / 3
-   * 7  = 4 / 3
-   * 101 = 52 / 49
-   *
-   * Math.round(51%) is used because the
-   * 51% side is the preferred bucket.
+   * 1  -> 1 / 0
+   * 2  -> 1 / 1
+   * 3  -> 2 / 1
+   * 4  -> 2 / 2
+   * 5  -> 3 / 2
+   * 6  -> 3 / 3
+   * 7  -> 4 / 3
+   * 8  -> 4 / 4
+   * 9  -> 5 / 4
+   * 10 -> 5 / 5
    */
 
   quantity =
-    Math.floor(quantity);
+    Math.floor(
+      quantity
+    );
 
 
   const green =
@@ -1696,28 +1983,35 @@ function calculateSplit() {
 
 
   document
-    .getElementById("greenQty")
+    .getElementById(
+      "greenQty"
+    )
     .textContent =
     green;
 
 
   document
-    .getElementById("redQty")
+    .getElementById(
+      "redQty"
+    )
     .textContent =
     red;
 
 }
 
 
+
 /* =========================================================
-   CAMERA
+   OPEN CAMERA
 ========================================================= */
 
 async function openCamera() {
 
   if (
     !navigator.mediaDevices ||
-    !navigator.mediaDevices.getUserMedia
+    !navigator
+      .mediaDevices
+      .getUserMedia
   ) {
 
     showStatus(
@@ -1752,7 +2046,9 @@ async function openCamera() {
 
     const video =
       document
-        .getElementById("cameraVideo");
+        .getElementById(
+          "cameraVideo"
+        );
 
 
     video.srcObject =
@@ -1760,7 +2056,9 @@ async function openCamera() {
 
 
     document
-      .getElementById("cameraModal")
+      .getElementById(
+        "cameraModal"
+      )
       .style.display =
       "flex";
 
@@ -1771,13 +2069,14 @@ async function openCamera() {
 
 
     showStatus(
-      "Camera permission was denied or the camera could not be opened.",
+      "Camera permission was denied or camera could not be opened.",
       "error"
     );
 
   }
 
 }
+
 
 
 /* =========================================================
@@ -1788,12 +2087,16 @@ function takePicture() {
 
   const video =
     document
-      .getElementById("cameraVideo");
+      .getElementById(
+        "cameraVideo"
+      );
 
 
   const canvas =
     document
-      .getElementById("cameraCanvas");
+      .getElementById(
+        "cameraCanvas"
+      );
 
 
   if (
@@ -1819,8 +2122,15 @@ function takePicture() {
     video.videoHeight;
 
 
+  /*
+   * Resize image before sending.
+   *
+   * This is important because Google
+   * Apps Script has request-size limits.
+   */
+
   const maxWidth =
-    1200;
+    1000;
 
 
   if (
@@ -1828,9 +2138,12 @@ function takePicture() {
   ) {
 
     height =
-      height *
-      maxWidth /
-      width;
+      Math.round(
+        height *
+        maxWidth /
+        width
+      );
+
 
     width =
       maxWidth;
@@ -1864,18 +2177,22 @@ function takePicture() {
   capturedImage =
     canvas.toDataURL(
       "image/jpeg",
-      0.75
+      0.65
     );
 
 
   document
-    .getElementById("previewImage")
+    .getElementById(
+      "previewImage"
+    )
     .src =
     capturedImage;
 
 
   document
-    .getElementById("previewContainer")
+    .getElementById(
+      "previewContainer"
+    )
     .style.display =
     "block";
 
@@ -1889,6 +2206,7 @@ function takePicture() {
   );
 
 }
+
 
 
 /* =========================================================
@@ -1918,7 +2236,9 @@ function closeCamera() {
 
   const video =
     document
-      .getElementById("cameraVideo");
+      .getElementById(
+        "cameraVideo"
+      );
 
 
   if (video) {
@@ -1930,22 +2250,27 @@ function closeCamera() {
 
 
   document
-    .getElementById("cameraModal")
+    .getElementById(
+      "cameraModal"
+    )
     .style.display =
     "none";
 
 }
 
 
+
 /* =========================================================
-   SUBMIT
+   SUBMIT PRODUCT
 ========================================================= */
 
 function submitProduct() {
 
   const barcode =
     document
-      .getElementById("barcode")
+      .getElementById(
+        "barcode"
+      )
       .value
       .trim();
 
@@ -1954,19 +2279,19 @@ function submitProduct() {
     Math.floor(
       Number(
         document
-          .getElementById("quantity")
+          .getElementById(
+            "quantity"
+          )
           .value
       )
     );
 
 
-  const descriptionElement =
+  let description =
     document
-      .getElementById("description");
-
-
-  const description =
-    descriptionElement
+      .getElementById(
+        "description"
+      )
       .textContent
       .trim();
 
@@ -1974,7 +2299,9 @@ function submitProduct() {
   const green =
     Number(
       document
-        .getElementById("greenQty")
+        .getElementById(
+          "greenQty"
+        )
         .textContent
     );
 
@@ -1982,19 +2309,21 @@ function submitProduct() {
   const red =
     Number(
       document
-        .getElementById("redQty")
+        .getElementById(
+          "redQty"
+        )
         .textContent
     );
 
 
-  /* -----------------------------------------
+  /* ======================================================
      VALIDATION
-  ----------------------------------------- */
+  ====================================================== */
 
   if (!barcode) {
 
     showStatus(
-      "Please scan a barcode.",
+      "Please scan or enter a barcode.",
       "error"
     );
 
@@ -2016,7 +2345,9 @@ function submitProduct() {
     );
 
     document
-      .getElementById("quantity")
+      .getElementById(
+        "quantity"
+      )
       .focus();
 
     return;
@@ -2029,7 +2360,7 @@ function submitProduct() {
   ) {
 
     showStatus(
-      "Box quantities do not match total quantity.",
+      "Green + Red must equal Total Quantity.",
       "error"
     );
 
@@ -2053,21 +2384,43 @@ function submitProduct() {
   }
 
 
-  /* -----------------------------------------
+  if (
+    description ===
+    "Waiting for barcode..."
+  ) {
+
+    description = "";
+
+  }
+
+
+  if (
+    description ===
+    "Product description not found."
+  ) {
+
+    description = "";
+
+  }
+
+
+  /* ======================================================
      REQUEST ID
-  ----------------------------------------- */
+  ====================================================== */
 
   const requestId =
     createRequestId();
 
 
-  /* -----------------------------------------
-     BUTTON
-  ----------------------------------------- */
+  /* ======================================================
+     DISABLE BUTTON
+  ====================================================== */
 
   const button =
     document
-      .getElementById("submitButton");
+      .getElementById(
+        "submitButton"
+      );
 
 
   button.disabled =
@@ -2084,128 +2437,149 @@ function submitProduct() {
   );
 
 
-  /* -----------------------------------------
-     FORM VALUES
-  ----------------------------------------- */
+  /* ======================================================
+     PREPARE FORM
+  ====================================================== */
 
   document
-    .getElementById("formUser")
+    .getElementById(
+      "formRequestId"
+    )
+    .value =
+    requestId;
+
+
+  document
+    .getElementById(
+      "formUser"
+    )
     .value =
     currentUser;
 
 
   document
-    .getElementById("formBarcode")
+    .getElementById(
+      "formBarcode"
+    )
     .value =
     barcode;
 
 
   document
-    .getElementById("formDescription")
+    .getElementById(
+      "formDescription"
+    )
     .value =
-    (
-      description ===
-      "Product description not found."
-        ? ""
-        : description
-    );
+    description;
 
 
   document
-    .getElementById("formTotalQty")
+    .getElementById(
+      "formTotalQty"
+    )
     .value =
     quantity;
 
 
   document
-    .getElementById("formGreenQty")
+    .getElementById(
+      "formGreenQty"
+    )
     .value =
     green;
 
 
   document
-    .getElementById("formRedQty")
+    .getElementById(
+      "formRedQty"
+    )
     .value =
     red;
 
 
   document
-    .getElementById("formImageData")
+    .getElementById(
+      "formImageData"
+    )
     .value =
     capturedImage || "";
 
 
   document
-    .getElementById("formImageName")
+    .getElementById(
+      "formImageName"
+    )
     .value =
     createImageName(
       barcode
     );
 
 
-  /*
-   * NEW:
-   * Unique ID used to confirm the
-   * Google Sheet write.
-   */
+  /* ======================================================
+     SET APPS SCRIPT URL
+  ====================================================== */
 
-  document
-    .getElementById("formRequestId")
-    .value =
-    requestId;
+  const form =
+    document
+      .getElementById(
+        "saveForm"
+      );
 
 
-  /* -----------------------------------------
-     SUBMIT FORM
-  ----------------------------------------- */
-
-  document
-    .getElementById("saveForm")
-    .action =
+  form.action =
     GOOGLE_SCRIPT_URL;
 
 
-  document
-    .getElementById("saveForm")
-    .submit();
+  /* ======================================================
+     SUBMIT
+  ====================================================== */
+
+  form.submit();
 
 
   /*
-   * Now wait for actual confirmation.
+   * Wait one second and then start
+   * checking the request status.
    */
 
-  pollSaveStatus(
-    requestId,
-    0
+  setTimeout(
+    function() {
+
+      checkSaveStatus(
+        requestId,
+        0
+      );
+
+    },
+    1200
   );
 
 }
 
 
+
 /* =========================================================
-   SAVE STATUS POLLING
+   CHECK SAVE STATUS
 ========================================================= */
 
-function pollSaveStatus(
+function checkSaveStatus(
   requestId,
   attempt
 ) {
 
   /*
-   * Maximum:
-   *
-   * 30 attempts
-   * x 1 second
-   * = 30 seconds
+   * Maximum 40 seconds.
    */
 
   if (
-    attempt >= 30
+    attempt >= 40
   ) {
 
     const button =
       document
-        .getElementById("submitButton");
+        .getElementById(
+          "submitButton"
+        );
 
 
     button.disabled =
@@ -2217,8 +2591,11 @@ function pollSaveStatus(
 
 
     showStatus(
-      "Save could not be confirmed after 30 seconds. Please check Sheet 1 before submitting again.",
+
+      "Save confirmation timed out. Please check Sheet 1 before submitting again.",
+
       "error"
+
     );
 
 
@@ -2254,39 +2631,51 @@ function pollSaveStatus(
       cleanup();
 
 
+      /* ====================================
+         SUCCESS
+      ==================================== */
+
       if (
         data &&
-        data.completed
+        data.completed &&
+        data.success
       ) {
 
-        if (
-          data.success
-        ) {
-
-          saveSucceeded();
-
-        } else {
-
-          saveFailed(
-            data.error ||
-            "Google Apps Script could not save the record."
-          );
-
-        }
+        saveSucceeded();
 
         return;
 
       }
 
 
-      /*
-       * Not finished yet.
-       */
+      /* ====================================
+         ERROR
+      ==================================== */
+
+      if (
+        data &&
+        data.completed &&
+        !data.success
+      ) {
+
+        saveFailed(
+          data.error ||
+          "Google Apps Script could not save the record."
+        );
+
+        return;
+
+      }
+
+
+      /* ====================================
+         STILL PROCESSING
+      ==================================== */
 
       setTimeout(
         function() {
 
-          pollSaveStatus(
+          checkSaveStatus(
             requestId,
             attempt + 1
           );
@@ -2333,7 +2722,7 @@ function pollSaveStatus(
       setTimeout(
         function() {
 
-          pollSaveStatus(
+          checkSaveStatus(
             requestId,
             attempt + 1
           );
@@ -2353,14 +2742,19 @@ function pollSaveStatus(
       requestId
     ) +
     "&callback=" +
-    callbackName;
+    encodeURIComponent(
+      callbackName
+    );
 
 
   document
     .body
-    .appendChild(script);
+    .appendChild(
+      script
+    );
 
 }
+
 
 
 /* =========================================================
@@ -2369,15 +2763,11 @@ function pollSaveStatus(
 
 function saveSucceeded() {
 
-  showStatus(
-    "✓ Saved successfully to Sheet 1.",
-    "success"
-  );
-
-
   const button =
     document
-      .getElementById("submitButton");
+      .getElementById(
+        "submitButton"
+      );
 
 
   button.disabled =
@@ -2388,27 +2778,37 @@ function saveSucceeded() {
     "✓ Submit & Next Product";
 
 
+  showStatus(
+    "✓ Saved successfully to Sheet 1.",
+    "success"
+  );
+
+
   /*
-   * Only NOW do we clear the form.
+   * IMPORTANT:
+   *
+   * Only clear the screen after
+   * Google confirms the save.
    */
 
   resetProduct();
 
 
-  /*
-   * Immediately prepare for next scan.
-   */
-
   setTimeout(
-    focusBarcode,
-    150
+    function() {
+
+      focusBarcode();
+
+    },
+    200
   );
 
 }
 
 
+
 /* =========================================================
-   SAVE FAILED
+   SAVE FAILURE
 ========================================================= */
 
 function saveFailed(
@@ -2417,7 +2817,9 @@ function saveFailed(
 
   const button =
     document
-      .getElementById("submitButton");
+      .getElementById(
+        "submitButton"
+      );
 
 
   button.disabled =
@@ -2437,22 +2839,6 @@ function saveFailed(
 }
 
 
-/* =========================================================
-   REQUEST ID
-========================================================= */
-
-function createRequestId() {
-
-  return (
-    Date.now() +
-    "_" +
-    Math.random()
-      .toString(36)
-      .substring(2, 12)
-  );
-
-}
-
 
 /* =========================================================
    RESET PRODUCT
@@ -2461,13 +2847,17 @@ function createRequestId() {
 function resetProduct() {
 
   document
-    .getElementById("barcode")
+    .getElementById(
+      "barcode"
+    )
     .value =
     "";
 
 
   document
-    .getElementById("quantity")
+    .getElementById(
+      "quantity"
+    )
     .value =
     "";
 
@@ -2476,13 +2866,17 @@ function resetProduct() {
 
 
   document
-    .getElementById("greenQty")
+    .getElementById(
+      "greenQty"
+    )
     .textContent =
     "0";
 
 
   document
-    .getElementById("redQty")
+    .getElementById(
+      "redQty"
+    )
     .textContent =
     "0";
 
@@ -2492,17 +2886,22 @@ function resetProduct() {
 
 
   document
-    .getElementById("previewImage")
+    .getElementById(
+      "previewImage"
+    )
     .src =
     "";
 
 
   document
-    .getElementById("previewContainer")
+    .getElementById(
+      "previewContainer"
+    )
     .style.display =
     "none";
 
 }
+
 
 
 /* =========================================================
@@ -2516,7 +2915,9 @@ function showStatus(
 
   const status =
     document
-      .getElementById("status");
+      .getElementById(
+        "status"
+      );
 
 
   status.textContent =
@@ -2529,6 +2930,7 @@ function showStatus(
 }
 
 
+
 /* =========================================================
    FOCUS BARCODE
 ========================================================= */
@@ -2537,7 +2939,9 @@ function focusBarcode() {
 
   const barcode =
     document
-      .getElementById("barcode");
+      .getElementById(
+        "barcode"
+      );
 
 
   barcode.focus();
@@ -2545,6 +2949,27 @@ function focusBarcode() {
   barcode.select();
 
 }
+
+
+
+/* =========================================================
+   REQUEST ID
+========================================================= */
+
+function createRequestId() {
+
+  return (
+
+    Date.now() +
+    "_" +
+    Math.random()
+      .toString(36)
+      .substring(2, 12)
+
+  );
+
+}
+
 
 
 /* =========================================================
@@ -2555,7 +2980,7 @@ function createImageName(
   barcode
 ) {
 
-  const date =
+  const timestamp =
     new Date()
       .toISOString()
       .replace(
@@ -2565,22 +2990,27 @@ function createImageName(
 
 
   return (
+
     "UPVision_" +
     barcode +
     "_" +
-    date +
+    timestamp +
     ".jpg"
+
   );
 
 }
 
 
+
 /* =========================================================
-   ENTER ON QUANTITY
+   QUANTITY ENTER
 ========================================================= */
 
 document
-  .getElementById("quantity")
+  .getElementById(
+    "quantity"
+  )
   .addEventListener(
     "keydown",
     function(event) {
@@ -2597,7 +3027,9 @@ document
 
     }
   );
+
 </script>
+
 
 </body>
 
