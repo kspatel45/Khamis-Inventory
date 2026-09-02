@@ -1226,23 +1226,17 @@ select:focus {
 <script>
 
 
-/* =====================================================
-   CONFIGURATION
-===================================================== */
-
-
-/*
- * PUT YOUR GOOGLE APPS SCRIPT WEB APP URL HERE.
- */
+/* =========================================================
+   GOOGLE APPS SCRIPT URL
+========================================================= */
 
 const GOOGLE_SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbxOXo9GEiThaug778UlVqh8CMnxeKaDTN_vr261-MorqbZOD1SGp2fUTrI09ubHVUY8/exec";
+  "https://script.google.com/macros/s/AKfycby_hmyJjGZn733R3FX5sumTdHYyRpuNSuu_Bu6VTVtoZdoYjkpbHf3qVFlQLmUUuLUi/exec";
 
 
-
-/* =====================================================
+/* =========================================================
    USERS
-===================================================== */
+========================================================= */
 
 const USERS = {
 
@@ -1261,11 +1255,18 @@ const USERS = {
 
 let currentUser = "";
 
+let lookupTimer = null;
+
+let jsonpCounter = 0;
+
+let cameraStream = null;
+
+let capturedImage = null;
 
 
-/* =====================================================
+/* =========================================================
    LOGIN
-===================================================== */
+========================================================= */
 
 function login() {
 
@@ -1284,6 +1285,10 @@ function login() {
   const error =
     document
       .getElementById("loginError");
+
+
+  error.style.display =
+    "none";
 
 
   if (!user) {
@@ -1321,19 +1326,19 @@ function login() {
   document
     .getElementById("loggedUser")
     .textContent =
-      user;
+    user;
 
 
   document
     .getElementById("loginScreen")
     .style.display =
-      "none";
+    "none";
 
 
   document
     .getElementById("app")
     .style.display =
-      "block";
+    "block";
 
 
   setTimeout(
@@ -1344,46 +1349,48 @@ function login() {
 }
 
 
-
-/* =====================================================
+/* =========================================================
    LOGOUT
-===================================================== */
+========================================================= */
 
 function logout() {
+
+  closeCamera();
 
   currentUser = "";
 
   document
     .getElementById("app")
     .style.display =
-      "none";
+    "none";
 
 
   document
     .getElementById("loginScreen")
     .style.display =
-      "flex";
+    "flex";
 
 
   document
     .getElementById("password")
-    .value = "";
+    .value =
+    "";
 
 
   document
     .getElementById("userSelect")
-    .value = "";
+    .value =
+    "";
+
+
+  resetProduct();
 
 }
 
 
-
-/* =====================================================
+/* =========================================================
    BARCODE
-===================================================== */
-
-let lookupTimer = null;
-
+========================================================= */
 
 document
   .getElementById("barcode")
@@ -1429,12 +1436,6 @@ document
       }
 
 
-      /*
-       * This delay is useful for barcode scanners.
-       *
-       * Most USB scanners type very quickly.
-       */
-
       lookupTimer =
         setTimeout(
           lookupDescription,
@@ -1445,14 +1446,9 @@ document
   );
 
 
-
-/* =====================================================
+/* =========================================================
    DESCRIPTION LOOKUP
-   JSONP
-===================================================== */
-
-let jsonpCounter = 0;
-
+========================================================= */
 
 function lookupDescription() {
 
@@ -1493,55 +1489,93 @@ function lookupDescription() {
     jsonpCounter;
 
 
-  window[callbackName] =
-    function(data) {
-
-      try {
-
-        if (
-          data &&
-          data.success &&
-          data.description
-        ) {
-
-          box.className =
-            "description found";
-
-          box.textContent =
-            data.description;
-
-        } else {
-
-          box.className =
-            "description not-found";
-
-          box.textContent =
-            "Product description not found.";
-
-        }
-
-      } finally {
-
-        delete window[
-          callbackName
-        ];
-
-        if (script.parentNode) {
-
-          script.parentNode
-            .removeChild(script);
-
-        }
-
-      }
-
-    };
-
-
   const script =
     document.createElement(
       "script"
     );
+
+
+  let finished =
+    false;
+
+
+  window[callbackName] =
+    function(data) {
+
+      finished =
+        true;
+
+
+      if (
+        data &&
+        data.success &&
+        data.description
+      ) {
+
+        box.className =
+          "description found";
+
+
+        box.textContent =
+          data.description;
+
+      } else {
+
+        box.className =
+          "description not-found";
+
+
+        box.textContent =
+          "Product description not found.";
+
+      }
+
+
+      cleanup();
+
+    };
+
+
+  function cleanup() {
+
+    delete window[
+      callbackName
+    ];
+
+
+    if (
+      script.parentNode
+    ) {
+
+      script.parentNode
+        .removeChild(
+          script
+        );
+
+    }
+
+  }
+
+
+  script.onerror =
+    function() {
+
+      if (finished) {
+        return;
+      }
+
+
+      box.className =
+        "description not-found";
+
+
+      box.textContent =
+        "Unable to connect to Google Sheets.";
+
+
+      cleanup();
+
+    };
 
 
   script.src =
@@ -1555,35 +1589,11 @@ function lookupDescription() {
     callbackName;
 
 
-  script.onerror =
-    function() {
-
-      box.className =
-        "description not-found";
-
-      box.textContent =
-        "Unable to connect to Google Sheets.";
-
-      delete window[
-        callbackName
-      ];
-
-      if (script.parentNode) {
-
-        script.parentNode
-          .removeChild(script);
-
-      }
-
-    };
-
-
   document
     .body
     .appendChild(script);
 
 }
-
 
 
 function resetDescription() {
@@ -1603,10 +1613,9 @@ function resetDescription() {
 }
 
 
-
-/* =====================================================
-   QUANTITY
-===================================================== */
+/* =========================================================
+   QUANTITY SPLIT
+========================================================= */
 
 document
   .getElementById("quantity")
@@ -1618,16 +1627,17 @@ document
 
 function calculateSplit() {
 
-  const quantity =
-    Number(
-      document
-        .getElementById("quantity")
-        .value
-    );
+  const input =
+    document
+      .getElementById("quantity");
+
+
+  let quantity =
+    Number(input.value);
 
 
   if (
-    !quantity ||
+    !Number.isFinite(quantity) ||
     quantity <= 0
   ) {
 
@@ -1649,18 +1659,34 @@ function calculateSplit() {
 
 
   /*
-   * 51% Green.
+   * Inventory must be whole pieces.
    *
-   * Green gets the rounded-down quantity.
-   * Red gets everything remaining.
+   * Rule:
    *
-   * This guarantees:
+   * The 51% bucket receives the piece
+   * whenever there is an odd split.
    *
-   * Green + Red = Total
+   * Examples:
+   *
+   * 1  = 1 / 0
+   * 2  = 1 / 1
+   * 3  = 2 / 1
+   * 4  = 2 / 2
+   * 5  = 3 / 2
+   * 6  = 3 / 3
+   * 7  = 4 / 3
+   * 101 = 52 / 49
+   *
+   * Math.round(51%) is used because the
+   * 51% side is the preferred bucket.
    */
 
+  quantity =
+    Math.floor(quantity);
+
+
   const green =
-    Math.floor(
+    Math.round(
       quantity * 0.51
     );
 
@@ -1683,22 +1709,11 @@ function calculateSplit() {
 }
 
 
-
-/* =====================================================
+/* =========================================================
    CAMERA
-===================================================== */
-
-let cameraStream = null;
-
-let capturedImage = null;
-
-
+========================================================= */
 
 async function openCamera() {
-
-  /*
-   * Check browser support.
-   */
 
   if (
     !navigator.mediaDevices ||
@@ -1716,12 +1731,6 @@ async function openCamera() {
 
 
   try {
-
-    /*
-     * Ask for camera.
-     *
-     * environment = rear camera on phones
-     */
 
     cameraStream =
       await navigator
@@ -1762,7 +1771,7 @@ async function openCamera() {
 
 
     showStatus(
-      "Unable to open camera. Please allow camera permission in your browser.",
+      "Camera permission was denied or the camera could not be opened.",
       "error"
     );
 
@@ -1771,10 +1780,9 @@ async function openCamera() {
 }
 
 
-
-/* =====================================================
+/* =========================================================
    TAKE PICTURE
-===================================================== */
+========================================================= */
 
 function takePicture() {
 
@@ -1788,14 +1796,19 @@ function takePicture() {
       .getElementById("cameraCanvas");
 
 
-  /*
-   * Use a reasonable maximum resolution.
-   *
-   * This prevents enormous image uploads.
-   */
+  if (
+    !video.videoWidth ||
+    !video.videoHeight
+  ) {
 
-  const maxWidth =
-    1200;
+    showStatus(
+      "Camera is not ready yet.",
+      "error"
+    );
+
+    return;
+
+  }
 
 
   let width =
@@ -1806,19 +1819,13 @@ function takePicture() {
     video.videoHeight;
 
 
-  if (!width || !height) {
-
-    showStatus(
-      "Camera is not ready yet. Please try again.",
-      "error"
-    );
-
-    return;
-
-  }
+  const maxWidth =
+    1200;
 
 
-  if (width > maxWidth) {
+  if (
+    width > maxWidth
+  ) {
 
     height =
       height *
@@ -1833,6 +1840,7 @@ function takePicture() {
 
   canvas.width =
     width;
+
 
   canvas.height =
     height;
@@ -1853,20 +1861,12 @@ function takePicture() {
   );
 
 
-  /*
-   * Compress to JPEG.
-   */
-
   capturedImage =
     canvas.toDataURL(
       "image/jpeg",
       0.75
     );
 
-
-  /*
-   * Display preview.
-   */
 
   document
     .getElementById("previewImage")
@@ -1891,10 +1891,9 @@ function takePicture() {
 }
 
 
-
-/* =====================================================
+/* =========================================================
    CLOSE CAMERA
-===================================================== */
+========================================================= */
 
 function closeCamera() {
 
@@ -1910,16 +1909,24 @@ function closeCamera() {
         }
       );
 
+
     cameraStream =
       null;
 
   }
 
 
-  document
-    .getElementById("cameraVideo")
-    .srcObject =
-    null;
+  const video =
+    document
+      .getElementById("cameraVideo");
+
+
+  if (video) {
+
+    video.srcObject =
+      null;
+
+  }
 
 
   document
@@ -1930,10 +1937,9 @@ function closeCamera() {
 }
 
 
-
-/* =====================================================
+/* =========================================================
    SUBMIT
-===================================================== */
+========================================================= */
 
 function submitProduct() {
 
@@ -1945,17 +1951,24 @@ function submitProduct() {
 
 
   const quantity =
-    Number(
-      document
-        .getElementById("quantity")
-        .value
+    Math.floor(
+      Number(
+        document
+          .getElementById("quantity")
+          .value
+      )
     );
 
 
-  const description =
+  const descriptionElement =
     document
-      .getElementById("description")
-      .textContent;
+      .getElementById("description");
+
+
+  const description =
+    descriptionElement
+      .textContent
+      .trim();
 
 
   const green =
@@ -1973,6 +1986,10 @@ function submitProduct() {
         .textContent
     );
 
+
+  /* -----------------------------------------
+     VALIDATION
+  ----------------------------------------- */
 
   if (!barcode) {
 
@@ -2007,6 +2024,47 @@ function submitProduct() {
   }
 
 
+  if (
+    green + red !== quantity
+  ) {
+
+    showStatus(
+      "Box quantities do not match total quantity.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  if (
+    description ===
+    "Looking up product..."
+  ) {
+
+    showStatus(
+      "Please wait for the product description.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  /* -----------------------------------------
+     REQUEST ID
+  ----------------------------------------- */
+
+  const requestId =
+    createRequestId();
+
+
+  /* -----------------------------------------
+     BUTTON
+  ----------------------------------------- */
+
   const button =
     document
       .getElementById("submitButton");
@@ -2016,15 +2074,19 @@ function submitProduct() {
     true;
 
 
+  button.textContent =
+    "Saving...";
+
+
   showStatus(
-    "Saving inventory...",
+    "Saving inventory to Google Sheets...",
     "loading"
   );
 
 
-  /*
-   * Fill hidden form.
-   */
+  /* -----------------------------------------
+     FORM VALUES
+  ----------------------------------------- */
 
   document
     .getElementById("formUser")
@@ -2082,9 +2144,20 @@ function submitProduct() {
 
 
   /*
-   * Submit to Apps Script
-   * through hidden iframe.
+   * NEW:
+   * Unique ID used to confirm the
+   * Google Sheet write.
    */
+
+  document
+    .getElementById("formRequestId")
+    .value =
+    requestId;
+
+
+  /* -----------------------------------------
+     SUBMIT FORM
+  ----------------------------------------- */
 
   document
     .getElementById("saveForm")
@@ -2098,45 +2171,292 @@ function submitProduct() {
 
 
   /*
-   * Since the form submission is happening
-   * in a hidden iframe, we don't wait for
-   * fetch() or CORS.
-   *
-   * Give Apps Script a moment to process.
+   * Now wait for actual confirmation.
    */
 
-  setTimeout(
-    function() {
-
-      showStatus(
-        "✓ Submitted. Ready for next product.",
-        "success"
-      );
-
-
-      resetProduct();
-
-
-      button.disabled =
-        false;
-
-
-      setTimeout(
-        focusBarcode,
-        150
-      );
-
-    },
-    1200
+  pollSaveStatus(
+    requestId,
+    0
   );
 
 }
 
 
+/* =========================================================
+   SAVE STATUS POLLING
+========================================================= */
 
-/* =====================================================
-   RESET
-===================================================== */
+function pollSaveStatus(
+  requestId,
+  attempt
+) {
+
+  /*
+   * Maximum:
+   *
+   * 30 attempts
+   * x 1 second
+   * = 30 seconds
+   */
+
+  if (
+    attempt >= 30
+  ) {
+
+    const button =
+      document
+        .getElementById("submitButton");
+
+
+    button.disabled =
+      false;
+
+
+    button.textContent =
+      "✓ Submit & Next Product";
+
+
+    showStatus(
+      "Save could not be confirmed after 30 seconds. Please check Sheet 1 before submitting again.",
+      "error"
+    );
+
+
+    return;
+
+  }
+
+
+  const callbackName =
+    "statusCallback_" +
+    Date.now() +
+    "_" +
+    attempt;
+
+
+  const script =
+    document.createElement(
+      "script"
+    );
+
+
+  let finished =
+    false;
+
+
+  window[callbackName] =
+    function(data) {
+
+      finished =
+        true;
+
+
+      cleanup();
+
+
+      if (
+        data &&
+        data.completed
+      ) {
+
+        if (
+          data.success
+        ) {
+
+          saveSucceeded();
+
+        } else {
+
+          saveFailed(
+            data.error ||
+            "Google Apps Script could not save the record."
+          );
+
+        }
+
+        return;
+
+      }
+
+
+      /*
+       * Not finished yet.
+       */
+
+      setTimeout(
+        function() {
+
+          pollSaveStatus(
+            requestId,
+            attempt + 1
+          );
+
+        },
+        1000
+      );
+
+    };
+
+
+  function cleanup() {
+
+    delete window[
+      callbackName
+    ];
+
+
+    if (
+      script.parentNode
+    ) {
+
+      script.parentNode
+        .removeChild(
+          script
+        );
+
+    }
+
+  }
+
+
+  script.onerror =
+    function() {
+
+      if (finished) {
+        return;
+      }
+
+
+      cleanup();
+
+
+      setTimeout(
+        function() {
+
+          pollSaveStatus(
+            requestId,
+            attempt + 1
+          );
+
+        },
+        1000
+      );
+
+    };
+
+
+  script.src =
+    GOOGLE_SCRIPT_URL +
+    "?action=status" +
+    "&requestId=" +
+    encodeURIComponent(
+      requestId
+    ) +
+    "&callback=" +
+    callbackName;
+
+
+  document
+    .body
+    .appendChild(script);
+
+}
+
+
+/* =========================================================
+   SAVE SUCCESS
+========================================================= */
+
+function saveSucceeded() {
+
+  showStatus(
+    "✓ Saved successfully to Sheet 1.",
+    "success"
+  );
+
+
+  const button =
+    document
+      .getElementById("submitButton");
+
+
+  button.disabled =
+    false;
+
+
+  button.textContent =
+    "✓ Submit & Next Product";
+
+
+  /*
+   * Only NOW do we clear the form.
+   */
+
+  resetProduct();
+
+
+  /*
+   * Immediately prepare for next scan.
+   */
+
+  setTimeout(
+    focusBarcode,
+    150
+  );
+
+}
+
+
+/* =========================================================
+   SAVE FAILED
+========================================================= */
+
+function saveFailed(
+  message
+) {
+
+  const button =
+    document
+      .getElementById("submitButton");
+
+
+  button.disabled =
+    false;
+
+
+  button.textContent =
+    "✓ Submit & Next Product";
+
+
+  showStatus(
+    "Unable to save: " +
+    message,
+    "error"
+  );
+
+}
+
+
+/* =========================================================
+   REQUEST ID
+========================================================= */
+
+function createRequestId() {
+
+  return (
+    Date.now() +
+    "_" +
+    Math.random()
+      .toString(36)
+      .substring(2, 12)
+  );
+
+}
+
+
+/* =========================================================
+   RESET PRODUCT
+========================================================= */
 
 function resetProduct() {
 
@@ -2185,10 +2505,9 @@ function resetProduct() {
 }
 
 
-
-/* =====================================================
+/* =========================================================
    STATUS
-===================================================== */
+========================================================= */
 
 function showStatus(
   message,
@@ -2210,29 +2529,27 @@ function showStatus(
 }
 
 
-
-/* =====================================================
-   FOCUS
-===================================================== */
+/* =========================================================
+   FOCUS BARCODE
+========================================================= */
 
 function focusBarcode() {
 
-  const input =
+  const barcode =
     document
       .getElementById("barcode");
 
 
-  input.focus();
+  barcode.focus();
 
-  input.select();
+  barcode.select();
 
 }
 
 
-
-/* =====================================================
+/* =========================================================
    IMAGE NAME
-===================================================== */
+========================================================= */
 
 function createImageName(
   barcode
@@ -2258,10 +2575,9 @@ function createImageName(
 }
 
 
-
-/* =====================================================
-   ENTER KEY
-===================================================== */
+/* =========================================================
+   ENTER ON QUANTITY
+========================================================= */
 
 document
   .getElementById("quantity")
@@ -2281,7 +2597,6 @@ document
 
     }
   );
-
 </script>
 
 </body>
