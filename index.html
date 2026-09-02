@@ -459,7 +459,23 @@ select {
 
 }
 
+<!-- ===================================================
+     BOX NUMBER
+==================================================== -->
+<div class="card">
+  <label class="fieldLabel" for="boxNumber">
+    Box Number
+  </label>
 
+  <input
+    id="boxNumber"
+    class="mainInput"
+    type="text"
+    autocomplete="off"
+    placeholder="Enter box number"
+  >
+</div>
+  
 /* =========================================================
    BOXES
 ========================================================= */
@@ -1383,6 +1399,11 @@ A normal form POST is much more reliable for Apps Script.
     name="totalQty"
   >
 
+  <input
+  type="hidden"
+  id="formBoxNumber"
+  name="boxNumber"
+>
 
   <input
     type="hidden"
@@ -1437,7 +1458,7 @@ A normal form POST is much more reliable for Apps Script.
  */
 
 const GOOGLE_SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbxqLY9luOEeDxTugf-vZbyUofRUgmjSUGPWFJRbQj9-qfHKGv7d4FY2YPL6yry4asoe/exec";
+  "https://script.google.com/macros/s/AKfycbwlKx2qOyLks9wB2L3AoV7a-c5-u1KxN0-Aep7fCt-2DVVXNhHu2fbRc0ia7dtfzVdM/exec";
 
 
 
@@ -2274,7 +2295,13 @@ function submitProduct() {
       .value
       .trim();
 
+const boxNumber =
+  document
+    .getElementById("boxNumber")
+    .value
+    .trim();
 
+  
   const quantity =
     Math.floor(
       Number(
@@ -2480,7 +2507,11 @@ function submitProduct() {
     .value =
     quantity;
 
+document
+  .getElementById("formBoxNumber")
+  .value = boxNumber;
 
+  
   document
     .getElementById(
       "formGreenQty"
@@ -2853,7 +2884,11 @@ function resetProduct() {
     .value =
     "";
 
+document
+  .getElementById("boxNumber")
+  .value = "";
 
+  
   document
     .getElementById(
       "quantity"
