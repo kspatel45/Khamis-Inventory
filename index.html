@@ -55,6 +55,12 @@ select {
 }
 
 
+.requiredStar {
+  color: #ef4444;
+  margin-left: 4px;
+}
+
+
 /* =========================================================
    LOGIN
 ========================================================= */
@@ -981,37 +987,50 @@ select {
       class="loginLabel"
       for="userSelect"
     >
-      User
+      User<span class="requiredStar">*</span>
     </label>
 
 
     <select
       id="userSelect"
       class="loginInput"
+      required
     >
 
       <option value="">
         Select User
       </option>
 
-      <option value="User 1">
-        User 1
+      <option value="Anas">
+        Anas
       </option>
 
-      <option value="User 2">
-        User 2
+      <option value="Jamal">
+        Jamal
       </option>
 
-      <option value="User 3">
-        User 3
+      <option value="Farah">
+        Farah
       </option>
 
-      <option value="User 4">
-        User 4
+      <option value="Hamza">
+        Hamza
       </option>
 
-      <option value="User 5">
-        User 5
+      <option value="Fareed">
+        Fareed
+      </option>
+
+      <option value="Khamis">
+        Khamis
+      </option>
+
+      <option value="Extra 1">
+        Extra 1
+      </option>
+
+      <option value="Extra 2">
+        Extra 2
       </option>
 
     </select>
@@ -1021,7 +1040,7 @@ select {
       class="loginLabel"
       for="password"
     >
-      Password
+      Password<span class="requiredStar">*</span>
     </label>
 
 
@@ -1031,6 +1050,7 @@ select {
       type="password"
       placeholder="Enter password"
       autocomplete="off"
+      required
     >
 
 
@@ -1098,7 +1118,7 @@ select {
         class="fieldLabel"
         for="barcode"
       >
-        Barcode
+        Barcode<span class="requiredStar">*</span>
       </label>
 
 
@@ -1109,6 +1129,7 @@ select {
         inputmode="numeric"
         autocomplete="off"
         placeholder="Scan or enter barcode"
+        required
       >
 
     </div>
@@ -1118,7 +1139,7 @@ select {
     ==================================================== -->
     <div class="card">
       <label class="fieldLabel" for="boxNumber">
-        Box Number
+        Box Number<span class="requiredStar">*</span>
       </label>
 
       <input
@@ -1127,6 +1148,7 @@ select {
         type="text"
         autocomplete="off"
         placeholder="Enter box number"
+        required
       >
     </div>
 
@@ -1139,7 +1161,7 @@ select {
       <label
         class="fieldLabel"
       >
-        Product Description
+        Product Description<span class="requiredStar">*</span>
       </label>
 
 
@@ -1164,7 +1186,7 @@ select {
         class="fieldLabel"
         for="quantity"
       >
-        Total Quantity
+        Total Quantity<span class="requiredStar">*</span>
       </label>
 
 
@@ -1175,6 +1197,7 @@ select {
         min="1"
         step="1"
         placeholder="Enter quantity"
+        required
       >
 
 
@@ -1248,7 +1271,7 @@ select {
         class="cameraButton"
         onclick="openCamera()"
       >
-        📷 Add Product Image
+        📷 Add Product Image<span class="requiredStar">*</span>
       </button>
 
 
@@ -1340,16 +1363,6 @@ select {
 <!-- =======================================================
      HIDDEN SAVE FORM
 ======================================================== -->
-
-<!--
-
-IMPORTANT:
-
-This form is intentionally used instead of fetch()
-because Google Apps Script Web Apps can redirect requests.
-A normal form POST is much more reliable for Apps Script.
-
--->
 
 <form
   id="saveForm"
@@ -1449,14 +1462,6 @@ A normal form POST is much more reliable for Apps Script.
    GOOGLE APPS SCRIPT URL
 ========================================================= */
 
-/*
- * IMPORTANT:
- *
- * Paste your deployed Apps Script Web App URL here.
- *
- * It must end with /exec
- */
-
 const GOOGLE_SCRIPT_URL =
   "https://script.google.com/macros/s/AKfycbwlKx2qOyLks9wB2L3AoV7a-c5-u1KxN0-Aep7fCt-2DVVXNhHu2fbRc0ia7dtfzVdM/exec";
 
@@ -1468,15 +1473,21 @@ const GOOGLE_SCRIPT_URL =
 
 const USERS = {
 
-  "User 1": "U123",
+  "Anas": "anasz3bi",
 
-  "User 2": "S456",
+  "Jamal": "Jamal2007",
 
-  "User 3": "E789",
+  "Farah": "Ff123456",
 
-  "User 4": "R147",
+  "Hamza": "Hh123",
 
-  "User 5": "258"
+  "Fareed": "Ff123456789"
+
+  "Khamis": "Kk123456"
+
+   "Extra 1": "Ex123456"
+  
+   "Extra 2": "Ee123456"
 
 };
 
@@ -1690,7 +1701,7 @@ document
 
         document
           .getElementById(
-            "quantity"
+            "boxNumber"
           )
           .focus();
 
@@ -1968,25 +1979,6 @@ function calculateSplit() {
   }
 
 
-  /*
-   * Whole pieces only.
-   *
-   * Green receives 51%.
-   *
-   * Math.round means:
-   *
-   * 1  -> 1 / 0
-   * 2  -> 1 / 1
-   * 3  -> 2 / 1
-   * 4  -> 2 / 2
-   * 5  -> 3 / 2
-   * 6  -> 3 / 3
-   * 7  -> 4 / 3
-   * 8  -> 4 / 4
-   * 9  -> 5 / 4
-   * 10 -> 5 / 5
-   */
-
   quantity =
     Math.floor(
       quantity
@@ -2143,13 +2135,6 @@ function takePicture() {
     video.videoHeight;
 
 
-  /*
-   * Resize image before sending.
-   *
-   * This is important because Google
-   * Apps Script has request-size limits.
-   */
-
   const maxWidth =
     1000;
 
@@ -2295,11 +2280,11 @@ function submitProduct() {
       .value
       .trim();
 
-const boxNumber =
-  document
-    .getElementById("boxNumber")
-    .value
-    .trim();
+  const boxNumber =
+    document
+      .getElementById("boxNumber")
+      .value
+      .trim();
 
   
   const quantity =
@@ -2344,17 +2329,65 @@ const boxNumber =
 
 
   /* ======================================================
-     VALIDATION
+     MANDATORY VALIDATION FOR ALL FIELDS
   ====================================================== */
 
   if (!barcode) {
 
     showStatus(
-      "Please scan or enter a barcode.",
+      "Barcode is mandatory. Please scan or enter a barcode.",
       "error"
     );
 
     focusBarcode();
+
+    return;
+
+  }
+
+
+  if (!boxNumber) {
+
+    showStatus(
+      "Box Number is mandatory. Please enter a box number.",
+      "error"
+    );
+
+    document
+      .getElementById("boxNumber")
+      .focus();
+
+    return;
+
+  }
+
+
+  if (
+    description ===
+    "Looking up product..."
+  ) {
+
+    showStatus(
+      "Please wait for product description lookup to complete.",
+      "error"
+    );
+
+    return;
+
+  }
+
+
+  if (
+    !description ||
+    description === "Waiting for barcode..." ||
+    description === "Product description not found." ||
+    description === "Unable to connect to description database."
+  ) {
+
+    showStatus(
+      "Valid product description is mandatory before submitting.",
+      "error"
+    );
 
     return;
 
@@ -2367,7 +2400,7 @@ const boxNumber =
   ) {
 
     showStatus(
-      "Please enter a valid quantity.",
+      "Quantity is mandatory. Please enter a valid quantity.",
       "error"
     );
 
@@ -2396,37 +2429,14 @@ const boxNumber =
   }
 
 
-  if (
-    description ===
-    "Looking up product..."
-  ) {
+  if (!capturedImage) {
 
     showStatus(
-      "Please wait for the product description.",
+      "Product photo is mandatory. Please add an image before submitting.",
       "error"
     );
 
     return;
-
-  }
-
-
-  if (
-    description ===
-    "Waiting for barcode..."
-  ) {
-
-    description = "";
-
-  }
-
-
-  if (
-    description ===
-    "Product description not found."
-  ) {
-
-    description = "";
 
   }
 
@@ -2507,9 +2517,9 @@ const boxNumber =
     .value =
     quantity;
 
-document
-  .getElementById("formBoxNumber")
-  .value = boxNumber;
+  document
+    .getElementById("formBoxNumber")
+    .value = boxNumber;
 
   
   document
@@ -2533,7 +2543,7 @@ document
       "formImageData"
     )
     .value =
-    capturedImage || "";
+    capturedImage;
 
 
   document
@@ -2568,11 +2578,6 @@ document
   form.submit();
 
 
-  /*
-   * Wait one second and then start
-   * checking the request status.
-   */
-
   setTimeout(
     function() {
 
@@ -2597,10 +2602,6 @@ function checkSaveStatus(
   requestId,
   attempt
 ) {
-
-  /*
-   * Maximum 40 seconds.
-   */
 
   if (
     attempt >= 40
@@ -2815,13 +2816,6 @@ function saveSucceeded() {
   );
 
 
-  /*
-   * IMPORTANT:
-   *
-   * Only clear the screen after
-   * Google confirms the save.
-   */
-
   resetProduct();
 
 
@@ -2884,9 +2878,9 @@ function resetProduct() {
     .value =
     "";
 
-document
-  .getElementById("boxNumber")
-  .value = "";
+  document
+    .getElementById("boxNumber")
+    .value = "";
 
   
   document
