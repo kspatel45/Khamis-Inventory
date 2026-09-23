@@ -1,1048 +1,520 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
 <meta charset="UTF-8">
-
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1.0"
->
-
-<title>
-  UP Vision Inventory
-</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UP Vision Inventory</title>
 
 <style>
-
 /* =========================================================
    GLOBAL
 ========================================================= */
-
 * {
   box-sizing: border-box;
 }
 
-
 body {
-
   margin: 0;
-
-  font-family:
-    Arial,
-    Helvetica,
-    sans-serif;
-
-  background:
-    #eef2f7;
-
-  color:
-    #172033;
-
+  font-family: Arial, Helvetica, sans-serif;
+  background: #eef2f7;
+  color: #172033;
 }
-
 
 button,
 input,
 select {
-
-  font-family:
-    inherit;
-
+  font-family: inherit;
 }
-
 
 .requiredStar {
   color: #ef4444;
   margin-left: 4px;
 }
 
-
 /* =========================================================
    LOGIN
 ========================================================= */
-
 #loginScreen {
-
   min-height: 100vh;
-
   display: flex;
-
   justify-content: center;
-
   align-items: center;
-
   padding: 20px;
-
 }
-
 
 .loginCard {
-
   width: 100%;
-
   max-width: 450px;
-
   background: white;
-
   border-radius: 22px;
-
   padding: 35px;
-
-  box-shadow:
-    0 15px 45px
-    rgba(0,0,0,.12);
-
+  box-shadow: 0 15px 45px rgba(0,0,0,.12);
 }
-
 
 .logo {
-
   text-align: center;
-
   font-size: 32px;
-
   font-weight: 800;
-
   margin-bottom: 5px;
-
 }
-
 
 .subtitle {
-
   text-align: center;
-
   color: #64748b;
-
   margin-bottom: 30px;
-
 }
-
 
 .loginLabel {
-
   display: block;
-
   font-weight: 700;
-
-  margin:
-    0 0 8px;
-
+  margin: 0 0 8px;
 }
-
 
 .loginInput {
-
   width: 100%;
-
   height: 55px;
-
-  border:
-    1px solid #cbd5e1;
-
+  border: 1px solid #cbd5e1;
   border-radius: 12px;
-
-  padding:
-    0 16px;
-
+  padding: 0 16px;
   font-size: 18px;
-
   margin-bottom: 18px;
-
   outline: none;
-
 }
-
 
 .loginInput:focus {
-
-  border-color:
-    #6d35e8;
-
-  box-shadow:
-    0 0 0 3px
-    rgba(109,53,232,.12);
-
+  border-color: #6d35e8;
+  box-shadow: 0 0 0 3px rgba(109,53,232,.12);
 }
-
 
 .loginButton {
-
   width: 100%;
-
   height: 55px;
-
   border: none;
-
   border-radius: 12px;
-
-  background:
-    #6d35e8;
-
+  background: #6d35e8;
   color: white;
-
   font-size: 18px;
-
   font-weight: 800;
-
   cursor: pointer;
-
 }
-
 
 .loginButton:hover {
-
-  background:
-    #5b28d1;
-
+  background: #5b28d1;
 }
-
 
 .loginError {
-
   display: none;
-
-  background:
-    #fee2e2;
-
-  color:
-    #b91c1c;
-
+  background: #fee2e2;
+  color: #b91c1c;
   border-radius: 10px;
-
   padding: 12px;
-
   margin-bottom: 18px;
-
   text-align: center;
-
   font-weight: 700;
-
 }
-
 
 /* =========================================================
    MAIN APPLICATION
 ========================================================= */
-
 #app {
-
   display: none;
-
   min-height: 100vh;
-
 }
-
 
 .header {
-
-  background:
-    #172033;
-
+  background: #172033;
   color: white;
-
-  padding:
-    16px 20px;
-
+  padding: 16px 20px;
   display: flex;
-
   align-items: center;
-
   justify-content: space-between;
-
   gap: 15px;
-
 }
-
 
 .headerTitle {
-
   font-size: 23px;
-
   font-weight: 800;
-
 }
-
 
 .headerUser {
-
   display: flex;
-
   align-items: center;
-
   gap: 12px;
-
 }
-
 
 .logoutButton {
-
-  background:
-    #334155;
-
+  background: #334155;
   color: white;
-
   border: none;
-
-  padding:
-    9px 14px;
-
+  padding: 9px 14px;
   border-radius: 9px;
-
   cursor: pointer;
-
   font-weight: 700;
-
 }
-
 
 .logoutButton:hover {
-
-  background:
-    #475569;
-
+  background: #475569;
 }
-
 
 .container {
-
   width: 100%;
-
   max-width: 1000px;
-
-  margin:
-    0 auto;
-
-  padding:
-    20px;
-
+  margin: 0 auto;
+  padding: 20px;
 }
-
 
 /* =========================================================
    CARD
 ========================================================= */
-
 .card {
-
   background: white;
-
   border-radius: 20px;
-
   padding: 22px;
-
   margin-bottom: 20px;
-
-  box-shadow:
-    0 7px 25px
-    rgba(0,0,0,.07);
-
+  box-shadow: 0 7px 25px rgba(0,0,0,.07);
 }
-
 
 .fieldLabel {
-
   display: block;
-
   font-size: 18px;
-
   font-weight: 800;
-
   margin-bottom: 8px;
-
 }
-
 
 .mainInput {
-
   width: 100%;
-
   height: 62px;
-
-  border:
-    1px solid #cbd5e1;
-
+  border: 1px solid #cbd5e1;
   border-radius: 13px;
-
-  padding:
-    0 18px;
-
+  padding: 0 18px;
   font-size: 22px;
-
   outline: none;
-
 }
-
 
 .mainInput:focus {
-
-  border-color:
-    #6d35e8;
-
-  box-shadow:
-    0 0 0 3px
-    rgba(109,53,232,.12);
-
+  border-color: #6d35e8;
+  box-shadow: 0 0 0 3px rgba(109,53,232,.12);
 }
-
 
 /* =========================================================
    DESCRIPTION
 ========================================================= */
-
 .description {
-
   min-height: 58px;
-
   display: flex;
-
   align-items: center;
-
-  border:
-    1px solid #cbd5e1;
-
-  background:
-    #f8fafc;
-
+  border: 1px solid #cbd5e1;
+  background: #f8fafc;
   border-radius: 13px;
-
-  padding:
-    12px 16px;
-
+  padding: 12px 16px;
   font-size: 19px;
-
-  color:
-    #475569;
-
+  color: #475569;
 }
-
 
 .description.found {
-
-  background:
-    #ecfdf5;
-
-  border-color:
-    #86efac;
-
-  color:
-    #166534;
-
+  background: #ecfdf5;
+  border-color: #86efac;
+  color: #166534;
   font-weight: 700;
-
 }
-
 
 .description.not-found {
-
-  background:
-    #fff7ed;
-
-  border-color:
-    #fdba74;
-
-  color:
-    #c2410c;
-
+  background: #fff7ed;
+  border-color: #fdba74;
+  color: #c2410c;
 }
-
 
 /* =========================================================
    QUANTITY
 ========================================================= */
-
 .quantityInput {
-
   text-align: center;
-
   font-size: 28px;
-
   font-weight: 800;
-
 }
 
-
-  
 /* =========================================================
    BOXES
 ========================================================= */
-
 .splitContainer {
-
   display: grid;
-
-  grid-template-columns:
-    1fr 1fr;
-
+  grid-template-columns: 1fr 1fr;
   gap: 18px;
-
   margin-top: 18px;
-
 }
-
 
 .splitBox {
-
   min-height: 190px;
-
   border-radius: 18px;
-
   display: flex;
-
   flex-direction: column;
-
   align-items: center;
-
   justify-content: center;
-
   text-align: center;
-
 }
-
 
 .greenBox {
-
-  background:
-    #dcfce7;
-
-  border:
-    3px solid #22c55e;
-
+  background: #dcfce7;
+  border: 3px solid #22c55e;
 }
-
 
 .redBox {
-
-  background:
-    #fee2e2;
-
-  border:
-    3px solid #ef4444;
-
+  background: #fee2e2;
+  border: 3px solid #ef4444;
 }
-
 
 .boxTitle {
-
   font-size: 20px;
-
   font-weight: 900;
-
 }
-
 
 .boxPercent {
-
   font-size: 18px;
-
-  color:
-    #64748b;
-
+  color: #64748b;
   margin-top: 8px;
-
 }
-
 
 .boxNumber {
-
   font-size: 52px;
-
   font-weight: 900;
-
   margin-top: 8px;
-
 }
-
 
 /* =========================================================
    CAMERA BUTTON
 ========================================================= */
-
 .cameraButton {
-
   width: 100%;
-
   height: 62px;
-
   border: none;
-
   border-radius: 13px;
-
-  background:
-    #6d35e8;
-
+  background: #6d35e8;
   color: white;
-
   font-size: 19px;
-
   font-weight: 800;
-
   cursor: pointer;
-
   margin-top: 20px;
-
 }
-
 
 .cameraButton:hover {
-
-  background:
-    #5b28d1;
-
+  background: #5b28d1;
 }
-
 
 /* =========================================================
    IMAGE PREVIEW
 ========================================================= */
-
 #previewContainer {
-
   display: none;
-
   text-align: center;
-
   margin-top: 18px;
-
 }
-
 
 #previewImage {
-
   max-width: 100%;
-
   max-height: 350px;
-
   border-radius: 14px;
-
-  box-shadow:
-    0 8px 25px
-    rgba(0,0,0,.15);
-
+  box-shadow: 0 8px 25px rgba(0,0,0,.15);
 }
-
 
 /* =========================================================
    STATUS
 ========================================================= */
-
 .status {
-
   display: none;
-
-  padding:
-    16px;
-
+  padding: 16px;
   border-radius: 13px;
-
   text-align: center;
-
   font-weight: 800;
-
   font-size: 17px;
-
   margin-top: 18px;
-
 }
-
 
 .status.loading {
-
   display: block;
-
-  background:
-    #dbeafe;
-
-  color:
-    #1d4ed8;
-
+  background: #dbeafe;
+  color: #1d4ed8;
 }
-
 
 .status.success {
-
   display: block;
-
-  background:
-    #dcfce7;
-
-  color:
-    #166534;
-
+  background: #dcfce7;
+  color: #166534;
 }
-
 
 .status.error {
-
   display: block;
-
-  background:
-    #fee2e2;
-
-  color:
-    #b91c1c;
-
+  background: #fee2e2;
+  color: #b91c1c;
 }
-
 
 /* =========================================================
    SUBMIT
 ========================================================= */
-
 .submitButton {
-
   width: 100%;
-
   height: 66px;
-
   border: none;
-
   border-radius: 14px;
-
-  background:
-    #059669;
-
+  background: #059669;
   color: white;
-
   font-size: 20px;
-
   font-weight: 900;
-
   cursor: pointer;
-
   margin-top: 18px;
-
 }
-
 
 .submitButton:hover {
-
-  background:
-    #047857;
-
+  background: #047857;
 }
-
 
 .submitButton:disabled {
-
   opacity: .65;
-
-  cursor:
-    not-allowed;
-
+  cursor: not-allowed;
 }
-
 
 /* =========================================================
    CAMERA MODAL
 ========================================================= */
-
 #cameraModal {
-
   display: none;
-
   position: fixed;
-
   inset: 0;
-
   z-index: 9999;
-
-  background:
-    rgba(0,0,0,.92);
-
+  background: rgba(0,0,0,.92);
   align-items: center;
-
   justify-content: center;
-
   padding: 15px;
-
 }
-
 
 .cameraWindow {
-
   width: 100%;
-
   max-width: 700px;
-
-  background:
-    #111827;
-
+  background: #111827;
   border-radius: 18px;
-
   padding: 15px;
-
 }
-
 
 #cameraVideo {
-
   width: 100%;
-
   max-height: 65vh;
-
   object-fit: contain;
-
   border-radius: 12px;
-
-  background:
-    black;
-
+  background: black;
 }
-
 
 .cameraControls {
-
   display: grid;
-
-  grid-template-columns:
-    1fr 1fr;
-
+  grid-template-columns: 1fr 1fr;
   gap: 12px;
-
   margin-top: 14px;
-
 }
-
 
 .takePhotoButton,
 .closeCameraButton {
-
   height: 55px;
-
   border: none;
-
   border-radius: 12px;
-
   font-size: 17px;
-
   font-weight: 800;
-
   cursor: pointer;
-
 }
-
 
 .takePhotoButton {
-
-  background:
-    #22c55e;
-
+  background: #22c55e;
   color: white;
-
 }
-
 
 .closeCameraButton {
-
-  background:
-    #475569;
-
+  background: #475569;
   color: white;
-
 }
-
 
 /* =========================================================
    DESKTOP
 ========================================================= */
-
-@media (
-  min-width: 700px
-) {
-
+@media (min-width: 700px) {
   .card {
-
-    padding:
-      28px;
-
+    padding: 28px;
   }
-
 }
-
 
 /* =========================================================
    MOBILE
 ========================================================= */
-
-@media (
-  max-width: 600px
-) {
-
+@media (max-width: 600px) {
   .header {
-
-    align-items:
-      flex-start;
-
+    align-items: flex-start;
   }
-
 
   .headerTitle {
-
     font-size: 19px;
-
   }
-
 
   .headerUser {
-
-    flex-direction:
-      column;
-
-    align-items:
-      flex-end;
-
+    flex-direction: column;
+    align-items: flex-end;
     gap: 5px;
-
   }
-
 
   .container {
-
-    padding:
-      12px;
-
+    padding: 12px;
   }
-
 
   .card {
-
-    padding:
-      17px;
-
-    border-radius:
-      16px;
-
+    padding: 17px;
+    border-radius: 16px;
   }
-
 
   .splitContainer {
-
     gap: 10px;
-
   }
-
 
   .splitBox {
-
-    min-height:
-      160px;
-
+    min-height: 160px;
   }
-
 
   .boxNumber {
-
-    font-size:
-      43px;
-
+    font-size: 43px;
   }
-
 
   .boxTitle {
-
-    font-size:
-      17px;
-
+    font-size: 17px;
   }
-
 }
-
 </style>
-
 </head>
 
-
 <body>
-
 
 <!-- =======================================================
      LOGIN SCREEN
 ======================================================== -->
-
 <div id="loginScreen">
-
   <div class="loginCard">
+    <div class="logo">UP Vision</div>
+    <div class="subtitle">Inventory Splitting Tool</div>
 
-    <div class="logo">
-      UP Vision
-    </div>
+    <div id="loginError" class="loginError"></div>
 
-    <div class="subtitle">
-      Inventory Splitting Tool
-    </div>
-
-
-    <div
-      id="loginError"
-      class="loginError"
-    ></div>
-
-
-    <label
-      class="loginLabel"
-      for="userSelect"
-    >
+    <label class="loginLabel" for="userSelect">
       User<span class="requiredStar">*</span>
     </label>
 
-
-    <select
-      id="userSelect"
-      class="loginInput"
-      required
-    >
-
-      <option value="">
-        Select User
-      </option>
-
-      <option value="Rama">
-        Rama
-      </option>
-
-      <option value="Jamal">
-        Jamal
-      </option>
-
-      <option value="Jasmine">
-        Jasmine
-      </option>
-
-      <option value="Hamza">
-        Hamza
-      </option>
-
-      <option value="Fareed">
-        Fareed
-      </option>
-
-      <option value="Khamis">
-        Khamis
-      </option>
-
-      <option value="Extra 1">
-        Extra 1
-      </option>
-
-      <option value="Iman">
-        Iman
-      </option>
-
+    <select id="userSelect" class="loginInput" required>
+      <option value="">Select User</option>
+      <option value="Rama">Rama</option>
+      <option value="Jamal">Jamal</option>
+      <option value="Jasmine">Jasmine</option>
+      <option value="Hamza">Hamza</option>
+      <option value="Fareed">Fareed</option>
+      <option value="Khamis">Khamis</option>
+      <option value="Extra 1">Extra 1</option>
+      <option value="Iman">Iman</option>
     </select>
 
-
-    <label
-      class="loginLabel"
-      for="password"
-    >
+    <label class="loginLabel" for="password">
       Password<span class="requiredStar">*</span>
     </label>
-
 
     <input
       id="password"
@@ -1053,75 +525,31 @@ select {
       required
     >
 
-
-    <button
-      class="loginButton"
-      onclick="login()"
-    >
-      Login
-    </button>
-
+    <button class="loginButton" onclick="login()">Login</button>
   </div>
-
 </div>
-
-
 
 <!-- =======================================================
      MAIN APP
 ======================================================== -->
-
 <div id="app">
 
-
   <!-- HEADER -->
-
   <header class="header">
-
-    <div class="headerTitle">
-      UP Vision Inventory
-    </div>
-
-
+    <div class="headerTitle">UP Vision Inventory</div>
     <div class="headerUser">
-
-      <span>
-        👤
-        <strong id="loggedUser">
-        </strong>
-      </span>
-
-
-      <button
-        class="logoutButton"
-        onclick="logout()"
-      >
-        Logout
-      </button>
-
+      <span>👤 <strong id="loggedUser"></strong></span>
+      <button class="logoutButton" onclick="logout()">Logout</button>
     </div>
-
   </header>
-
-
 
   <main class="container">
 
-
-    <!-- ===================================================
-         BARCODE
-    ==================================================== -->
-
+    <!-- BARCODE -->
     <div class="card">
-
-      <label
-        class="fieldLabel"
-        for="barcode"
-      >
+      <label class="fieldLabel" for="barcode">
         Barcode<span class="requiredStar">*</span>
       </label>
-
-
       <input
         id="barcode"
         class="mainInput"
@@ -1131,17 +559,13 @@ select {
         placeholder="Scan or enter barcode"
         required
       >
-
     </div>
 
-<!-- ===================================================
-         BOX NUMBER
-    ==================================================== -->
+    <!-- BOX NUMBER -->
     <div class="card">
       <label class="fieldLabel" for="boxNumber">
         Box Number<span class="requiredStar">*</span>
       </label>
-
       <input
         id="boxNumber"
         class="mainInput"
@@ -1152,44 +576,21 @@ select {
       >
     </div>
 
-    <!-- ===================================================
-         DESCRIPTION
-    ==================================================== -->
-
+    <!-- DESCRIPTION -->
     <div class="card">
-
-      <label
-        class="fieldLabel"
-      >
+      <label class="fieldLabel">
         Product Description<span class="requiredStar">*</span>
       </label>
-
-
-      <div
-        id="description"
-        class="description"
-      >
+      <div id="description" class="description">
         Waiting for barcode...
       </div>
-
     </div>
 
-
-
-    <!-- ===================================================
-         QUANTITY
-    ==================================================== -->
-
+    <!-- QUANTITY -->
     <div class="card">
-
-      <label
-        class="fieldLabel"
-        for="quantity"
-      >
+      <label class="fieldLabel" for="quantity">
         Total Quantity<span class="requiredStar">*</span>
       </label>
-
-
       <input
         id="quantity"
         class="mainInput quantityInput"
@@ -1200,271 +601,84 @@ select {
         required
       >
 
-
       <!-- SPLIT BOXES -->
-
       <div class="splitContainer">
-
-
         <!-- GREEN -->
-
-        <div
-          class="splitBox greenBox"
-        >
-
-          <div class="boxTitle">
-            GREEN BOX
-          </div>
-
-          <div class="boxPercent">
-            51%
-          </div>
-
-          <div
-            id="greenQty"
-            class="boxNumber"
-          >
-            0
-          </div>
-
+        <div class="splitBox greenBox">
+          <div class="boxTitle">GREEN BOX</div>
+          <div class="boxPercent">51%</div>
+          <div id="greenQty" class="boxNumber">0</div>
         </div>
-
 
         <!-- RED -->
-
-        <div
-          class="splitBox redBox"
-        >
-
-          <div class="boxTitle">
-            RED BOX
-          </div>
-
-          <div class="boxPercent">
-            49%
-          </div>
-
-          <div
-            id="redQty"
-            class="boxNumber"
-          >
-            0
-          </div>
-
+        <div class="splitBox redBox">
+          <div class="boxTitle">RED BOX</div>
+          <div class="boxPercent">49%</div>
+          <div id="redQty" class="boxNumber">0</div>
         </div>
-
-
       </div>
-
     </div>
 
-
-
-    <!-- ===================================================
-         IMAGE
-    ==================================================== -->
-
+    <!-- IMAGE & SUBMIT -->
     <div class="card">
-
-
-      <button
-        class="cameraButton"
-        onclick="openCamera()"
-      >
+      <button class="cameraButton" onclick="openCamera()">
         📷 Add Product Image<span class="requiredStar">*</span>
       </button>
 
-
-      <div
-        id="previewContainer"
-      >
-
-        <img
-          id="previewImage"
-          alt="Product photo"
-        >
-
+      <div id="previewContainer">
+        <img id="previewImage" alt="Product photo">
       </div>
 
+      <div id="status" class="status"></div>
 
-      <div
-        id="status"
-        class="status"
-      ></div>
-
-
-      <button
-        id="submitButton"
-        class="submitButton"
-        onclick="submitProduct()"
-      >
+      <button id="submitButton" class="submitButton" onclick="submitProduct()">
         ✓ Submit & Next Product
       </button>
-
     </div>
 
-
   </main>
-
 </div>
-
-
 
 <!-- =======================================================
      CAMERA MODAL
 ======================================================== -->
-
 <div id="cameraModal">
-
-
   <div class="cameraWindow">
-
-
-    <video
-      id="cameraVideo"
-      autoplay
-      playsinline
-      muted
-    ></video>
-
-
-    <canvas
-      id="cameraCanvas"
-      style="display:none;"
-    ></canvas>
-
+    <video id="cameraVideo" autoplay playsinline muted></video>
+    <canvas id="cameraCanvas" style="display:none;"></canvas>
 
     <div class="cameraControls">
-
-      <button
-        class="takePhotoButton"
-        onclick="takePicture()"
-      >
-        📸 Take Picture
-      </button>
-
-
-      <button
-        class="closeCameraButton"
-        onclick="closeCamera()"
-      >
-        ✕ Cancel
-      </button>
-
+      <button class="takePhotoButton" onclick="takePicture()">📸 Take Picture</button>
+      <button class="closeCameraButton" onclick="closeCamera()">✕ Cancel</button>
     </div>
-
-
   </div>
-
 </div>
-
-
 
 <!-- =======================================================
      HIDDEN SAVE FORM
 ======================================================== -->
-
-<form
-  id="saveForm"
-  method="POST"
-  target="saveFrame"
-  style="display:none;"
->
-
-  <input
-    type="hidden"
-    name="action"
-    value="submit"
-  >
-
-
-  <input
-    type="hidden"
-    id="formRequestId"
-    name="requestId"
-  >
-
-
-  <input
-    type="hidden"
-    id="formUser"
-    name="user"
-  >
-
-
-  <input
-    type="hidden"
-    id="formBarcode"
-    name="barcode"
-  >
-
-
-  <input
-    type="hidden"
-    id="formDescription"
-    name="description"
-  >
-
-
-  <input
-    type="hidden"
-    id="formTotalQty"
-    name="totalQty"
-  >
-
-  <input
-  type="hidden"
-  id="formBoxNumber"
-  name="boxNumber"
->
-
-  <input
-    type="hidden"
-    id="formGreenQty"
-    name="greenQty"
-  >
-
-
-  <input
-    type="hidden"
-    id="formRedQty"
-    name="redQty"
-  >
-
-
-  <input
-    type="hidden"
-    id="formImageData"
-    name="imageData"
-  >
-
-
-  <input
-    type="hidden"
-    id="formImageName"
-    name="imageName"
-  >
-
+<form id="saveForm" method="POST" target="saveFrame" style="display:none;">
+  <input type="hidden" name="action" value="submit">
+  <input type="hidden" id="formRequestId" name="requestId">
+  <input type="hidden" id="formUser" name="user">
+  <input type="hidden" id="formBarcode" name="barcode">
+  <input type="hidden" id="formDescription" name="description">
+  <input type="hidden" id="formTotalQty" name="totalQty">
+  <input type="hidden" id="formBoxNumber" name="boxNumber">
+  <input type="hidden" id="formGreenQty" name="greenQty">
+  <input type="hidden" id="formRedQty" name="redQty">
+  <input type="hidden" id="formImageData" name="imageData">
+  <input type="hidden" id="formImageName" name="imageName">
 </form>
 
-
-<iframe
-  id="saveFrame"
-  name="saveFrame"
-  style="display:none;"
-></iframe>
-
-
+<iframe id="saveFrame" name="saveFrame" style="display:none;"></iframe>
 
 <script>
-
 /* =========================================================
    GOOGLE APPS SCRIPT URL
 ========================================================= */
-
 const GOOGLE_SCRIPT_URL =
   "https://script.google.com/macros/s/AKfycbwlKx2qOyLks9wB2L3AoV7a-c5-u1KxN0-Aep7fCt-2DVVXNhHu2fbRc0ia7dtfzVdM/exec";
-
 
 /* =========================================================
    PRODUCT DATABASE (HARDCODED)
@@ -1796,13 +1010,8 @@ const PRODUCT_DB = {
   "6941357839889": "Cute animal coil book  Universal",
   "532742300001": "Berry Bear Pencil Rollers Universal",
   "551876300001": "Fire Paint Candle Set Universal",
-  "754760800001": "Minimalist Cloud Grip Press Pen",
-
-
-
-
-  
-"6941986935761": "Flower expression car line book  Universal",
+  "754760800001": "Minimalist Cloud Grip Press Pen Uni",
+  "6941986935761": "Flower expression car line book  Universal",
   "6941986935778": "Fruit cat car line book  Universal",
   "6941986935785": "Cherry blossom series car line book  Universal",
   "6941986935792": "Cartoon animal car line book  Universal",
@@ -1865,8 +1074,7 @@ const PRODUCT_DB = {
   "6941986919266": "Storage bag side in-ear headphones (3.5mm plug) White",
   "6941986919259": "Storage bag side in-ear headphones (3.5mm plug) pink",
   "6941613554723": "Classic Bluetooth music headphones White",
-
-    "129634600001": "Mr. Rabbit mini keychain fan (3-speed) Universal",
+  "129634600001": "Mr. Rabbit mini keychain fan (3-speed) Universal",
   "687420800001": "Flower series keychain handheld fan (3 gears) Universal",
   "782054800001": "Colorful Paradise handheld fan Universal",
   "6956015771005": "LCD painting board Universal",
@@ -2020,7 +1228,6 @@ const PRODUCT_DB = {
   "6941986928688": "Violet flower women's invisible socks Universal",
   "6941986900899": "Lace Invisible Socks Skin color",
   "6941986900912": "Fresh bow monochrome lace invisible socks Pink-violet",
-
   "6941986900936": "Silicone free leaf lace invisible socks Skin color",
   "6941986900943": "silicone free lace invisible socks Pink-violet",
   "6941986900950": "Silicone free lace invisible socks Gray-blue",
@@ -2324,9 +1531,13 @@ const PRODUCT_DB = {
   "165781300001": "Earrings/silver pin tulip earrings  Universal",
   "17504470170701": "Earrings/Cat's eye ear clips 14k gold",
   "1943807000301": "Earrings/Silver pin cat's eye earrings  White",
-  "21570940170701": "Earrings/mul",
-
- "60673180170701": "Earrings/Silver pin cherry earrings 14k gold",
+  "21570940170701": "Earrings/multi-layer pearl zircon ear bone clips 14k gold",
+  "2271090000301": "Earrings/Silver pin love tassel earrings White",
+  "235502300001": "Earrings/Silver pin round bead earrings Universal",
+  "2377294000301": "Earrings/Bow tie love earrings White",
+  "25476810170701": "Earrings/Silver Pin Zirconia Earrings 14k gold",
+  "506259000001": "Earrings/silver pin bow tie flower studs cs Universal",
+  "60673180170701": "Earrings/Silver pin cherry earrings 14k gold",
   "4446685000301": "Earrings/silver needles inlaid heart set  White",
   "455021400001": "Earrings/Silver Needle Strawberry Set  Universal",
   "462929500001": "Earrings/Silver needles triangle earrings set Universal",
@@ -2436,8 +1647,6 @@ const PRODUCT_DB = {
   "922031700001": "Headband/headband with teeth Universal",
   "939037900001": "Headband/2 waves headband Universal",
   "573220500001": "Hair Sticker/Locked-edge pair of bangs sticker Universal",
-
-
   "966950000001": "Hair Sticker/mixed pair of bangs sticker Universal",
   "215286200001": "Hair Disk/Pill Hair Set Universal",
   "476125800001": "Hair Disk/Fashion hair set Universal",
@@ -2710,9 +1919,7 @@ const PRODUCT_DB = {
   "513957100001": "Hair Clip/bright diamond pair of clips  Universal",
   "521911700001": "Hair Clip/netting pair of clips  Universal",
   "168629200001": "Hair Band/mesh band 2  Universal",
-
-  
- "172242600001": "Hair Band / bow tie leather band 2  Universal",
+  "172242600001": "Hair Band / bow tie leather band 2  Universal",
   "188033400001": "Hair Band/tennis band 2  Universal",
   "380464000001": "Hair Clip/Bow tie duck clip  Universal",
   "475188400001": "Hair Clip/Tassel duck clip  Universal",
@@ -2892,8 +2099,6 @@ const PRODUCT_DB = {
   "5134848011701": "Checkered knitted children's scarf pink",
   "5134848001901": "Checkered knitted children's scarf green",
   "3627645000301": "Ultra-thin keyboard White",
-
-
   "3627645000101": "Ultra-thin keyboard black",
   "6946759923198": "BEAR Platinum Plastic Hook Uni",
   "6946759923112": "BEAR Badge Hook Uni",
@@ -3187,10 +2392,7 @@ const PRODUCT_DB = {
   "331718600001": "Hairpin/polka dot wrinkle BB clip Uni",
   "737351500001": "Hair Clip/fashion lace BB clip Uni",
   "875644100001": "Hair Clip/glossy oil dripping plum duck clip Uni",
-
-
-
-    "157191300001": "Hair Clip/Simple Plush Duck Clip Uni",
+  "157191300001": "Hair Clip/Simple Plush Duck Clip Uni",
   "182345200001": "Hair Clip/fashion clip set Uni",
   "349477900001": "Hair Clip/color styling clip set Uni",
   "592744600001": "Hair Clip/Pearl Diamond Duck Clip Uni",
@@ -3516,7 +2718,7 @@ const PRODUCT_DB = {
   "6942261694267": "Inverted triangle three-dimensional embroidered accordion card holder black",
   "6942261694489": "Inverted triangle three-dimensional embroidered accordion card holder pink",
   "6942261694496": "Inverted triangle three-dimensional embroidered accordion card holder blue",
-    "6942261694502": "Curved pebbled contrast color leather accordion card holder black",
+  "6942261694502": "Curved pebbled contrast color leather accordion card holder black",
   "6942261694526": "Curved pebbled contrast color leather accordion card holder apricot",
   "6942261694519": "Curved pebbled contrast color leather accordion card holder pink",
   "6942261681052": "Sports Animal Organ Card Holder Purple",
@@ -3576,8 +2778,6 @@ const PRODUCT_DB = {
   "6942261649120": "Jingle Cat Acrylic Transparent Card Holder Uni",
   "267254500001": "Sanrio Dream Girls Nail Sticker Set Uni",
   "579452300001": "Colorful acrylic nail sticker set (Sanrio) Uni",
-
-  
   "262788100001": "Huahua Everything-Special Oil Tape Uni",
   "324102400001": "My little pony picture book Uni",
   "351595200001": "Detective Conan picture book Uni",
@@ -3696,9 +2896,7 @@ const PRODUCT_DB = {
   "6959072724809": "Fast charging power bank 10000mAh black",
   "6959072724564": "Fast charging power bank 10000mAh White",
   "6971136176041": "Simple comes with four-wire mobile power supply 10000mAh black",
-
-  
-    "6971136176034": "Simple comes with four-wire mobile power supply 10000mAh White",
+  "6971136176034": "Simple comes with four-wire mobile power supply 10000mAh White",
   "6976260657077": "Star PD silicone data cable (type-c) Purple",
   "6942261620709": "Simple two-in-one data cable White",
   "674278600001": "Minimalist True Wireless Bluetooth Headset Uni",
@@ -3847,9 +3045,7 @@ const PRODUCT_DB = {
   "6942261656487": "Doodle Bear Sandals (Men) White",
   "6942261656494": "Doodle Bear Sandals (Men) White",
   "481102000001": "10-inch landscape series folding fan Uni",
-
-  
-    "527692900001": "Three-dimensional texture glasses case Uni",
+  "527692900001": "Three-dimensional texture glasses case Uni",
   "6942261683018": "child polarizer/flower children's polarizer Uni",
   "6942261678151": "child polarizer/little bear children polarizer Uni",
   "6942261645450": "Interstellar Bear Rabbit Ice Pack Eye Mask Uni",
@@ -4064,8 +3260,6 @@ const PRODUCT_DB = {
   "6941986928299": "Sanrio large toiletry bag black",
   "6941986928305": "Sanrio large toiletry bag off white",
   "6941986928312": "Sanrio large toiletry bag blue",
-
-
   "6974042777524": "Toma Monster B series printed tissue/XH Uni",
   "6941613707716": "(Sanrio) Pacha dog plastic comb Uni",
   "583153300001": "Disney Mickey Series Folding Mirror Uni",
@@ -4198,235 +3392,318 @@ const PRODUCT_DB = {
   "2669-1-072026": "Dumpling Squishy - Mini",
   "SZCHE-072026": "Cheese Squishy",
   "SZPIZ-072026": "Pizza Squishy"
-
-  
-
-  
-  
-
-
 };
 
 
 /* =========================================================
-   USERS
+   APPLICATION STATE & FUNCTIONS
 ========================================================= */
+let stream = null;
+let currentImageData = "";
 
-const USERS = {
-
-  "Rama": "Rama2026",
-
-  "Jamal": "Jamal2007",
-
-  "Jasmine": "Jas2026",
-
-  "Hamza": "Hh123",
-
-  "Fareed": "Ff123456789",
-
-  "Khamis": "Kk123456",
-
-   "Extra 1": "Ex123456",
-  
-   "Iman": "Ii123456"
-
-};
-
-
-let currentUser = "";
-
-let lookupTimer = null;
-
-let jsonpCounter = 0;
-
-let cameraStream = null;
-
-let capturedImage = null;
-
-
-
-/* =========================================================
-   LOGIN
-========================================================= */
-
+// 1. LOGIN FUNCTIONALITY
 function login() {
+  const userSelect = document.getElementById("userSelect");
+  const passwordInput = document.getElementById("password");
+  const loginError = document.getElementById("loginError");
 
-  const user =
-    document
-      .getElementById(
-        "userSelect"
-      )
-      .value;
+  const selectedUser = userSelect.value;
+  const password = passwordInput.value;
 
-
-  const password =
-    document
-      .getElementById(
-        "password"
-      )
-      .value;
-
-
-  const error =
-    document
-      .getElementById(
-        "loginError"
-      );
-
-
-  error.style.display =
-    "none";
-
-
-  if (!user) {
-
-    error.textContent =
-      "Please select a user.";
-
-    error.style.display =
-      "block";
-
+  if (!selectedUser) {
+    loginError.textContent = "Please select a user.";
+    loginError.style.display = "block";
     return;
-
   }
 
-
-  if (
-    USERS[user] !== password
-  ) {
-
-    error.textContent =
-      "Incorrect password.";
-
-    error.style.display =
-      "block";
-
+  if (!password) {
+    loginError.textContent = "Please enter password.";
+    loginError.style.display = "block";
     return;
-
   }
 
+  // Clear login error
+  loginError.style.display = "none";
 
-  currentUser =
-    user;
+  // Set logged-in user in UI and hidden form
+  document.getElementById("loggedUser").textContent = selectedUser;
+  document.getElementById("formUser").value = selectedUser;
 
+  // Switch display
+  document.getElementById("loginScreen").style.display = "none";
+  document.getElementById("app").style.display = "block";
 
-  document
-    .getElementById(
-      "loggedUser"
-    )
-    .textContent =
-    user;
-
-
-  document
-    .getElementById(
-      "loginScreen"
-    )
-    .style.display =
-    "none";
-
-
-  document
-    .getElementById(
-      "app"
-    )
-    .style.display =
-    "block";
-
-
-  resetProduct();
-
-
-  setTimeout(
-    focusBarcode,
-    200
-  );
-
+  // Focus barcode field for quick scanning
+  document.getElementById("barcode").focus();
 }
 
-
-
-/* =========================================================
-   PASSWORD ENTER
-========================================================= */
-
-document
-  .getElementById("password")
-  .addEventListener(
-    "keydown",
-    function(event) {
-
-      if (
-        event.key === "Enter"
-      ) {
-
-        event.preventDefault();
-
-        login();
-
-      }
-
-    }
-  );
-
-
-
-/* =========================================================
-   LOGOUT
-========================================================= */
-
+// 2. LOGOUT FUNCTIONALITY
 function logout() {
+  document.getElementById("loginScreen").style.display = "flex";
+  document.getElementById("app").style.display = "none";
+  document.getElementById("password").value = "";
+  document.getElementById("userSelect").value = "";
+  document.getElementById("loginError").style.display = "none";
+  resetFormFields();
+}
+
+// 3. BARCODE LOOKUP
+const barcodeInput = document.getElementById("barcode");
+const descriptionDiv = document.getElementById("description");
+
+barcodeInput.addEventListener("input", lookupBarcode);
+
+function lookupBarcode() {
+  const val = barcodeInput.value.trim();
+  
+  if (!val) {
+    descriptionDiv.textContent = "Waiting for barcode...";
+    descriptionDiv.className = "description";
+    document.getElementById("formBarcode").value = "";
+    document.getElementById("formDescription").value = "";
+    return;
+  }
+
+  document.getElementById("formBarcode").value = val;
+
+  if (PRODUCT_DB.hasOwnProperty(val)) {
+    const desc = PRODUCT_DB[val];
+    descriptionDiv.textContent = desc;
+    descriptionDiv.className = "description found";
+    document.getElementById("formDescription").value = desc;
+  } else {
+    descriptionDiv.textContent = "Product not found";
+    descriptionDiv.className = "description not-found";
+    document.getElementById("formDescription").value = "Product not found";
+  }
+}
+
+// 4. BOX NUMBER BINDING
+const boxNumberInput = document.getElementById("boxNumber");
+boxNumberInput.addEventListener("input", () => {
+  document.getElementById("formBoxNumber").value = boxNumberInput.value.trim();
+});
+
+// 5. QUANTITY SPLIT CALCULATION (51% Green / 49% Red)
+const quantityInput = document.getElementById("quantity");
+const greenQtyDiv = document.getElementById("greenQty");
+const redQtyDiv = document.getElementById("redQty");
+
+quantityInput.addEventListener("input", calculateSplit);
+
+function calculateSplit() {
+  const qty = parseInt(quantityInput.value, 10);
+  
+  if (isNaN(qty) || qty <= 0) {
+    greenQtyDiv.textContent = "0";
+    redQtyDiv.textContent = "0";
+    document.getElementById("formTotalQty").value = "";
+    document.getElementById("formGreenQty").value = "0";
+    document.getElementById("formRedQty").value = "0";
+    return;
+  }
+
+  const green = Math.round(qty * 0.51);
+  const red = qty - green;
+
+  greenQtyDiv.textContent = green;
+  redQtyDiv.textContent = red;
+
+  document.getElementById("formTotalQty").value = qty;
+  document.getElementById("formGreenQty").value = green;
+  document.getElementById("formRedQty").value = red;
+}
+
+// 6. CAMERA & IMAGE CAPTURE
+async function openCamera() {
+  const cameraModal = document.getElementById("cameraModal");
+  const video = document.getElementById("cameraVideo");
+
+  try {
+    stream = await navigator.mediaDevices.getUserMedia({
+      video: { facingMode: "environment" }
+    });
+    video.srcObject = stream;
+    cameraModal.style.display = "flex";
+  } catch (err) {
+    try {
+      // Fallback for desktop / front cameras
+      stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      video.srcObject = stream;
+      cameraModal.style.display = "flex";
+    } catch (err2) {
+      showStatus("Error accessing camera: " + err2.message, "error");
+    }
+  }
+}
+
+function takePicture() {
+  const video = document.getElementById("cameraVideo");
+  const canvas = document.getElementById("cameraCanvas");
+  const previewImage = document.getElementById("previewImage");
+  const previewContainer = document.getElementById("previewContainer");
+
+  if (!video.videoWidth || !video.videoHeight) {
+    showStatus("Camera not ready yet. Please try again.", "error");
+    return;
+  }
+
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+  const ctx = canvas.getContext("2d");
+  ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+  currentImageData = canvas.toDataURL("image/jpeg", 0.8);
+  previewImage.src = currentImageData;
+  previewContainer.style.display = "block";
+
+  document.getElementById("formImageData").value = currentImageData;
+
+  const barcode = document.getElementById("barcode").value.trim() || "item";
+  document.getElementById("formImageName").value = `${barcode}_${Date.now()}.jpg`;
 
   closeCamera();
-
-
-  currentUser =
-    "";
-
-
-  document
-    .getElementById(
-      "app"
-    )
-    .style.display =
-    "none";
-
-
-  document
-    .getElementById(
-      "loginScreen"
-    )
-    .style.display =
-    "flex";
-
-
-  document
-    .getElementById(
-      "password"
-    )
-    .value =
-    "";
-
-
-  document
-    .getElementById(
-      "userSelect"
-    )
-    .value =
-    "";
-
-
-  resetProduct();
-
 }
 
+function closeCamera() {
+  const cameraModal = document.getElementById("cameraModal");
+  if (stream) {
+    stream.getTracks().forEach(track => track.stop());
+    stream = null;
+  }
+  cameraModal.style.display = "none";
+}
 
+// 7. STATUS DISPLAY UTILITIES
+function showStatus(message, type) {
+  const statusDiv = document.getElementById("status");
+  statusDiv.textContent = message;
+  statusDiv.className = `status ${type}`;
+}
 
-/* =========================================================
-   BARCODE INPUT
-========================================================= */
+function hideStatus() {
+  const statusDiv = document.getElementById("status");
+  statusDiv.style.display = "none";
+  statusDiv.className = "status";
+}
 
-document
-  .getElementById("barcode")
-  .addEventListener(
-    "keydown
+// 8. SUBMIT PRODUCT DATA
+function submitProduct() {
+  const user = document.getElementById("loggedUser").textContent;
+  const barcode = document.getElementById("barcode").value.trim();
+  const boxNumber = document.getElementById("boxNumber").value.trim();
+  const description = document.getElementById("description").textContent.trim();
+  const quantity = document.getElementById("quantity").value.trim();
+  const submitBtn = document.getElementById("submitButton");
+
+  // Validations
+  if (!user) {
+    showStatus("Error: User not logged in.", "error");
+    return;
+  }
+
+  if (!barcode) {
+    showStatus("Please enter or scan a barcode.", "error");
+    document.getElementById("barcode").focus();
+    return;
+  }
+
+  if (!boxNumber) {
+    showStatus("Please enter a box number.", "error");
+    document.getElementById("boxNumber").focus();
+    return;
+  }
+
+  if (!quantity || parseInt(quantity, 10) <= 0) {
+    showStatus("Please enter a valid quantity.", "error");
+    document.getElementById("quantity").focus();
+    return;
+  }
+
+  if (!currentImageData) {
+    showStatus("Please add a product image before submitting.", "error");
+    return;
+  }
+
+  // Set form hidden fields
+  document.getElementById("formRequestId").value = Date.now().toString();
+  document.getElementById("formUser").value = user;
+  document.getElementById("formBarcode").value = barcode;
+  document.getElementById("formBoxNumber").value = boxNumber;
+  document.getElementById("formDescription").value = description;
+  document.getElementById("formTotalQty").value = quantity;
+  
+  const green = Math.round(parseInt(quantity, 10) * 0.51);
+  const red = parseInt(quantity, 10) - green;
+  document.getElementById("formGreenQty").value = green;
+  document.getElementById("formRedQty").value = red;
+
+  showStatus("Submitting product data...", "loading");
+  submitBtn.disabled = true;
+
+  const saveForm = document.getElementById("saveForm");
+  saveForm.action = GOOGLE_SCRIPT_URL;
+
+  const saveFrame = document.getElementById("saveFrame");
+
+  let isSubmitted = false;
+
+  const frameHandler = function() {
+    if (!isSubmitted) return;
+    showStatus("✓ Product submitted successfully!", "success");
+    submitBtn.disabled = false;
+    resetFormFields();
+    saveFrame.removeEventListener("load", frameHandler);
+    setTimeout(hideStatus, 3000);
+  };
+
+  saveFrame.addEventListener("load", frameHandler);
+  
+  isSubmitted = true;
+  saveForm.submit();
+
+  // Timeout fallback in case iframe onload does not fire
+  setTimeout(() => {
+    if (submitBtn.disabled) {
+      showStatus("✓ Product submitted successfully!", "success");
+      submitBtn.disabled = false;
+      resetFormFields();
+      setTimeout(hideStatus, 3000);
+    }
+  }, 3500);
+}
+
+// 9. RESET FORM FOR NEXT ITEM
+function resetFormFields() {
+  document.getElementById("barcode").value = "";
+  document.getElementById("boxNumber").value = "";
+  document.getElementById("quantity").value = "";
+  descriptionDiv.textContent = "Waiting for barcode...";
+  descriptionDiv.className = "description";
+  greenQtyDiv.textContent = "0";
+  redQtyDiv.textContent = "0";
+  document.getElementById("previewContainer").style.display = "none";
+  document.getElementById("previewImage").src = "";
+  currentImageData = "";
+  
+  document.getElementById("formBarcode").value = "";
+  document.getElementById("formBoxNumber").value = "";
+  document.getElementById("formDescription").value = "";
+  document.getElementById("formTotalQty").value = "";
+  document.getElementById("formGreenQty").value = "0";
+  document.getElementById("formRedQty").value = "0";
+  document.getElementById("formImageData").value = "";
+  document.getElementById("formImageName").value = "";
+
+  document.getElementById("barcode").focus();
+}
+
+// ENTER KEY TO LOGIN
+document.getElementById("password").addEventListener("keypress", function(e) {
+  if (e.key === "Enter") {
+    login();
+  }
+});
+</script>
+</body>
+</html>
